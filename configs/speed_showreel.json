@@ -1,0 +1,49 @@
+{
+  "project": "orchestrator_showreel",
+  "resolution": [1920, 1080],
+  "fps": 30,
+  "upscale": {
+    "enabled": false,
+    "target": "4k"
+  },
+  "audio": {
+    "voice": "en-US-BrianNeural",
+    "rate": "+24%",
+    "bpm": 128,
+    "preset": "cyber_breakbeat"
+  },
+  "scenes": [
+    {
+      "id": 1,
+      "duration": 3.5,
+      "template": "kinetic_type",
+      "headline": "SUPERCHARGED",
+      "subtitle": "MULTI-THREADED CONCURRENT PIPELINE",
+      "voiceover": "Video orchestrator active. Multi-threaded pipeline initialized."
+    },
+    {
+      "id": 2,
+      "duration": 3.5,
+      "template": "parametric_3d",
+      "headline": "PARAMETRIC",
+      "subtitle": "REALTIME 3D MATRIX PROJECTION",
+      "voiceover": "Real-time 3D geometry and hardware-accelerated shaders."
+    },
+    {
+      "id": 3,
+      "duration": 3.5,
+      "template": "bezier_ui",
+      "headline": "DYNAMICS",
+      "subtitle": "ZERO-DRIFT FRAME TIMELINE",
+      "voiceover": "Zero-drift frame synchronization with reactive audio spectrum."
+    },
+    {
+      "id": 4,
+      "duration": 3.5,
+      "template": "reactor_iris",
+      "headline": "ANTIGRAVITY",
+      "subtitle": "SHIPPING PRODUCTION FILMS IN SECONDS",
+      "voiceover": "Antigravity orchestrator. High speed production ready to ship."
+    }
+  ]
+}

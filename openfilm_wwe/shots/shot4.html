@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080, height=1920">
+  <title>Shot 4: THE GLOBAL JUGGERNAUT</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: #030305;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      position: relative;
+    }
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1080px;
+      height: 1920px;
+    }
+    .overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 140px 60px 180px 60px;
+      z-index: 10;
+    }
+    .badge-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .tag-badge {
+      align-self: flex-start;
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.6);
+      color: #fbbf24;
+      padding: 10px 24px;
+      border-radius: 999px;
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+    }
+    .scene-title {
+      color: #fff;
+      font-size: 42px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      text-shadow: 0 4px 16px rgba(0,0,0,0.8);
+    }
+    .subtitle-box {
+      background: linear-gradient(180deg, rgba(5,5,8,0.7) 0%, rgba(5,5,8,0.95) 100%);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-left: 6px solid #f59e0b;
+      padding: 24px 32px;
+      border-radius: 12px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.7);
+    }
+    .subtitle-text {
+      color: #f1f5f9;
+      font-size: 34px;
+      line-height: 1.4;
+      font-weight: 600;
+    }
+    .film-grain {
+      position: absolute;
+      inset: 0;
+      opacity: 0.04;
+      pointer-events: none;
+      background-image: radial-gradient(#fff 1px, transparent 1px);
+      background-size: 4px 4px;
+      z-index: 5;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="cv" width="1080" height="1920"></canvas>
+  <div class="film-grain"></div>
+  <div class="overlay">
+    <div class="badge-wrap">
+      <div class="tag-badge">*1.0B+ HOMES IN 180 COUNTRIES*</div>
+      <div class="scene-title">THE GLOBAL JUGGERNAUT</div>
+    </div>
+    <div class="subtitle-box">
+      <p class="subtitle-text">They transformed into a media juggernaut, broadcasting to over a billion homes in one hundred eighty countries.</p>
+    </div>
+  </div>
+
+  <script>
+    const cv = document.getElementById('cv');
+    const ctx = cv.getContext('2d');
+
+    function sfc32(a, b, c, d) {
+      return function() {
+        a >>>= 0; b >>>= 0; c >>>= 0; d >>>= 0; 
+        var t = (a + b | 0) + d | 0;
+        d = d + 1 | 0;
+        a = b ^ b >>> 9;
+        b = c + (c << 3) | 0;
+        c = (c << 21 | c >>> 11);
+        c = c + t | 0;
+        return (t >>> 0) / 4294967296;
+      }
+    }
+
+    
+function drawFrame(t) {
+  ctx.fillStyle = '#020408';
+  ctx.fillRect(0, 0, 1080, 1920);
+
+  const rand = sfc32(2024, 4, 7, 42);
+  for (let i = 0; i < 280; i++) {
+    const sx = rand() * 1080;
+    const sy = 400 + rand() * 1050;
+    const p = Math.sin(t * 3 + i) * 0.4 + 0.6;
+    ctx.beginPath();
+    ctx.arc(sx, sy, 2 + rand() * 3, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(255, 255, 255, ' + p + ')';
+    ctx.fill();
+  }
+
+  const rampWidth = 640;
+  const rampGrad = ctx.createLinearGradient(0, 480, 0, 1400);
+  rampGrad.addColorStop(0, '#f59e0b');
+  rampGrad.addColorStop(0.5, '#dc2626');
+  rampGrad.addColorStop(1, '#0f172a');
+
+  ctx.fillStyle = rampGrad;
+  ctx.beginPath();
+  ctx.moveTo(540 - rampWidth/2, 480);
+  ctx.lineTo(540 + rampWidth/2, 480);
+  ctx.lineTo(540 + 200, 1400);
+  ctx.lineTo(540 - 200, 1400);
+  ctx.closePath();
+  ctx.fill();
+
+  for (let p = 0; p < 50; p++) {
+    const py = 1200 - ((t * 800 + p * 40) % 800);
+    const px = 540 + Math.sin(p * 7) * 260;
+    ctx.beginPath();
+    ctx.arc(px, py, 4, 0, Math.PI * 2);
+    ctx.fillStyle = '#fde047';
+    ctx.fill();
+  }
+
+  ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
+  ctx.strokeStyle = '#f59e0b';
+  ctx.lineWidth = 3;
+  ctx.fillRect(140, 750, 800, 180);
+  ctx.strokeRect(140, 750, 800, 180);
+
+  ctx.fillStyle = '#fbbf24';
+  ctx.font = '900 64px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('1,000,000,000+', 540, 825);
+
+  ctx.fillStyle = '#cbd5e1';
+  ctx.font = '700 28px sans-serif';
+  ctx.fillText('GLOBAL HOUSEHOLDS REACHED', 540, 885);
+
+  ctx.fillStyle = 'rgba(220, 38, 38, 0.85)';
+  ctx.fillRect(360, 1000, 360, 70);
+  ctx.fillStyle = '#fff';
+  ctx.font = '800 32px sans-serif';
+  ctx.fillText('180 COUNTRIES', 540, 1048);
+}
+
+
+    window.film = {
+      frame(t) {
+        drawFrame(t);
+      }
+    };
+
+    window.film.frame(0);
+  </script>
+</body>
+</html>

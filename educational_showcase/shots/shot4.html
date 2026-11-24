@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280, height=720">
+  <title>Scene 4: 3D ANATOMY BREAKDOWN</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { width: 1280px; height: 720px; overflow: hidden; background: #07070a; font-family: 'Inter', sans-serif; }
+    canvas { position: absolute; inset: 0; width: 1280px; height: 720px; }
+  </style>
+</head>
+<body>
+  <canvas id="c" width="1280" height="720"></canvas>
+  <script>
+    const canvas = document.getElementById('c');
+    const ctx = canvas.getContext('2d');
+    const W = 1280, H = 720;
+    
+window.film = {
+  frame(t) {
+    const p = Math.min(Math.max(t / 4.5, 0), 1);
+    ctx.fillStyle = '#111318';
+    ctx.fillRect(0, 0, W, H);
+
+    // Neutral studio spotlight
+    const spot = ctx.createRadialGradient(W / 2, H / 2, 50, W / 2, H / 2, 650);
+    spot.addColorStop(0, '#232733');
+    spot.addColorStop(1, '#0e1014');
+    ctx.fillStyle = spot;
+    ctx.fillRect(0, 0, W, H);
+
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '800 52px "Inter", sans-serif';
+    ctx.fillText('3D ANATOMY BREAKDOWN', 100, 130);
+    ctx.fillStyle = '#ea580c';
+    ctx.font = '700 20px "Courier New", monospace';
+    ctx.fillText('// 3D ANATOMICAL EXPLODED VIEW', 100, 175);
+
+    // Exploded layers floating apart
+    const spread = Math.min(t / 2.0, 1) * 160;
+    const cx = W / 2 + 100, cy = H / 2 + 20;
+
+    for (let i = -2; i <= 2; i++) {
+      const ly = cy + i * (50 + spread);
+      ctx.save();
+      ctx.fillStyle = i === 0 ? '#ea580c' : '#334155';
+      ctx.shadowColor = 'rgba(0,0,0,0.6)';
+      ctx.shadowBlur = 15;
+      ctx.fillRect(cx - 240, ly - 20, 480, 40);
+
+      // Callout annotation pointers
+      if (t > 1.5) {
+        ctx.strokeStyle = '#ea580c';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(cx + 250, ly);
+        ctx.lineTo(cx + 360, ly);
+        ctx.stroke();
+
+        ctx.fillStyle = '#f8fafc';
+        ctx.font = '600 16px "Inter", sans-serif';
+        ctx.fillText(`COMPONENT 0${i + 3}`, cx + 380, ly + 5);
+      }
+      ctx.restore();
+    }
+  }
+};
+
+  </script>
+</body>
+</html>

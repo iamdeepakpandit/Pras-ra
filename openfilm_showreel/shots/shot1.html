@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, height=1080">
+  <title>Shot 1: Kinetic Typography & Scramble Decode</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      background: #07070a;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      position: relative;
+    }
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1920px;
+      height: 1080px;
+      z-index: 1;
+    }
+    .overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 60px 80px;
+    }
+    .hud-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(237, 73, 56, 0.3);
+      padding-bottom: 18px;
+    }
+    .hud-tag {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 15px;
+      letter-spacing: 3px;
+      color: #ed4938;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .hud-dot {
+      width: 10px;
+      height: 10px;
+      background: #ed4938;
+      border-radius: 50%;
+      box-shadow: 0 0 12px #ed4938;
+    }
+    .hud-metrics {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 14px;
+      letter-spacing: 2px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+    .hud-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 18px;
+    }
+    .hud-info {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.5);
+      letter-spacing: 2px;
+      line-height: 1.6;
+    }
+    .accent-pill {
+      background: rgba(237, 73, 56, 0.15);
+      border: 1px solid #ed4938;
+      color: #fff;
+      padding: 8px 20px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      box-shadow: 0 0 20px rgba(237, 73, 56, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="c" width="1920" height="1080"></canvas>
+  
+  <div class="overlay">
+    <div class="hud-header">
+      <div class="hud-tag">
+        <div class="hud-dot"></div>
+        <span>ANTIGRAVITY // REEL_2026 // SHOT_01</span>
+      </div>
+      <div class="hud-metrics">
+        REC [00:00:15:00] &nbsp;|&nbsp; 120 FPS &nbsp;|&nbsp; 4K DCI &nbsp;|&nbsp; MASTER OUTPUT
+      </div>
+    </div>
+    
+    
+
+    <div class="hud-footer">
+      <div class="hud-info">
+        PIPELINE: DETERMINISTIC CODE CANVAS<br>
+        RESOLUTION: 1920x1080 NATIVE // 16:9 CINEMA<br>
+        TECHNIQUE: KINETIC TYPOGRAPHY & SCRAMBLE DECODE
+      </div>
+      <div class="accent-pill">
+        TEXT SCRAMBLE • 120 FPS
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('c');
+    const ctx = canvas.getContext('2d');
+    const W = 1920;
+    const H = 1080;
+
+    // Deterministic pseudo-random seed generator
+    function pseudoRand(seed) {
+      const x = Math.sin(seed * 9999.123) * 10000;
+      return x - Math.floor(x);
+    }
+
+    
+window.film = {
+  frame(t) {
+    // Clamped progress 0 to 1
+    const p = Math.min(Math.max(t / 3.75, 0), 1);
+
+    // Clear background
+    ctx.fillStyle = '#07070a';
+    ctx.fillRect(0, 0, W, H);
+
+    // 1. Perspective Horizon Grid
+    ctx.save();
+    ctx.strokeStyle = 'rgba(237, 73, 56, 0.12)';
+    ctx.lineWidth = 1;
+    const gridSpacing = 80;
+    const gridOffset = (t * 120) % gridSpacing;
+    for (let x = 0; x < W; x += gridSpacing) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, H);
+      ctx.stroke();
+    }
+    for (let y = gridOffset; y < H; y += gridSpacing) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(W, y);
+      ctx.stroke();
+    }
+    ctx.restore();
+
+    // 2. High-speed scanning laser beam
+    const laserY = (t * 700) % H;
+    const laserGrad = ctx.createLinearGradient(0, laserY - 40, 0, laserY + 40);
+    laserGrad.addColorStop(0, 'rgba(237, 73, 56, 0)');
+    laserGrad.addColorStop(0.5, 'rgba(237, 73, 56, 0.45)');
+    laserGrad.addColorStop(1, 'rgba(237, 73, 56, 0)');
+    ctx.fillStyle = laserGrad;
+    ctx.fillRect(0, laserY - 40, W, 80);
+
+    ctx.strokeStyle = '#ed4938';
+    ctx.lineWidth = 2;
+    ctx.shadowColor = '#ed4938';
+    ctx.shadowBlur = 15;
+    ctx.beginPath();
+    ctx.moveTo(0, laserY);
+    ctx.lineTo(W, laserY);
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+
+    // 3. Staggered Explosive Kinetic Typography
+    const glyphs = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!<>_—#*+';
+    const targetText1 = "MOTION";
+    const targetText2 = "DESIGNER";
+
+    // Text Scramble Decode logic
+    function getScrambled(target, lockTime, charDelay) {
+      let res = '';
+      for (let i = 0; i < target.length; i++) {
+        const charLock = lockTime + i * charDelay;
+        if (t >= charLock) {
+          res += target[i];
+        } else if (t < 0.2) {
+          res += glyphs[Math.floor(pseudoRand(i * 13 + Math.floor(t * 30)) * glyphs.length)];
+        } else {
+          const scrambleIdx = Math.floor(pseudoRand(i * 47 + Math.floor(t * 24)) * glyphs.length);
+          res += glyphs[scrambleIdx];
+        }
+      }
+      return res;
+    }
+
+    const text1 = getScrambled(targetText1, 0.6, 0.08);
+    const text2 = getScrambled(targetText2, 1.2, 0.06);
+
+    // Camera push / scale overshoot
+    let scale = 1.0;
+    if (t < 0.5) {
+      // Overshoot spring
+      const st = t / 0.5;
+      scale = 0.85 + 0.25 * Math.sin(st * Math.PI * 0.8);
+    } else {
+      scale = 1.0 + (t - 0.5) * 0.04;
+    }
+
+    ctx.save();
+    ctx.translate(W / 2, H / 2 - 20);
+    ctx.scale(scale, scale);
+
+    // Ghost chromatic aberration echo
+    ctx.font = '900 148px "Arial Black", Impact, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    // Cyan chromatic shift
+    ctx.fillStyle = 'rgba(34, 211, 238, 0.35)';
+    ctx.fillText(text1, -6 * (1 - p), -74);
+    ctx.fillText(text2, 6 * (1 - p), 66);
+
+    // Red chromatic shift
+    ctx.fillStyle = 'rgba(237, 73, 56, 0.5)';
+    ctx.fillText(text1, 6 * (1 - p), -74);
+    ctx.fillText(text2, -6 * (1 - p), 66);
+
+    // Crisp white foreground text
+    ctx.fillStyle = '#ffffff';
+    ctx.shadowColor = '#ed4938';
+    ctx.shadowBlur = 30;
+    ctx.fillText(text1, 0, -74);
+    ctx.shadowBlur = 40;
+    ctx.fillText(text2, 0, 66);
+    ctx.shadowBlur = 0;
+
+    // Glowing border frame around text
+    const boxW = 860;
+    const boxH = 320;
+    ctx.strokeStyle = 'rgba(237, 73, 56, 0.5)';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(-boxW / 2, -boxH / 2, boxW, boxH);
+
+    // Corner brackets
+    const cLen = 30;
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 4;
+    // Top-left
+    ctx.beginPath(); ctx.moveTo(-boxW/2, -boxH/2 + cLen); ctx.lineTo(-boxW/2, -boxH/2); ctx.lineTo(-boxW/2 + cLen, -boxH/2); ctx.stroke();
+    // Top-right
+    ctx.beginPath(); ctx.moveTo(boxW/2 - cLen, -boxH/2); ctx.lineTo(boxW/2, -boxH/2); ctx.lineTo(boxW/2, -boxH/2 + cLen); ctx.stroke();
+    // Bottom-left
+    ctx.beginPath(); ctx.moveTo(-boxW/2, boxH/2 - cLen); ctx.lineTo(-boxW/2, boxH/2); ctx.lineTo(-boxW/2 + cLen, boxH/2); ctx.stroke();
+    // Bottom-right
+    ctx.beginPath(); ctx.moveTo(boxW/2 - cLen, boxH/2); ctx.lineTo(boxW/2, boxH/2); ctx.lineTo(boxW/2, boxH/2 - cLen); ctx.stroke();
+
+    ctx.restore();
+
+    // 4. Kinetic Subtitle banner & speed lines
+    if (t > 1.8) {
+      const subProg = Math.min((t - 1.8) / 0.4, 1);
+      const subY = H / 2 + 220;
+      ctx.save();
+      ctx.globalAlpha = subProg;
+      ctx.fillStyle = '#ed4938';
+      ctx.font = '700 24px "Courier New", monospace';
+      ctx.textAlign = 'center';
+      ctx.letterSpacing = '8px';
+      ctx.fillText('CRAFT OVER CODE // FRAME-PERFECT PRECISION', W / 2, subY);
+
+      // Accent vector line
+      const lineLen = 500 * subProg;
+      ctx.strokeStyle = '#ed4938';
+      ctx.lineWidth = 2;
+      ctx.shadowColor = '#ed4938';
+      ctx.shadowBlur = 10;
+      ctx.beginPath();
+      ctx.moveTo(W / 2 - lineLen / 2, subY + 20);
+      ctx.lineTo(W / 2 + lineLen / 2, subY + 20);
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    // 5. Digital Particle Sparks
+    ctx.fillStyle = '#ed4938';
+    for (let i = 0; i < 40; i++) {
+      const px = (pseudoRand(i * 17) * W + t * (pseudoRand(i * 3) - 0.5) * 500) % W;
+      const py = (pseudoRand(i * 29) * H + t * (pseudoRand(i * 7) - 0.5) * 300) % H;
+      const size = pseudoRand(i * 5) * 4 + 1;
+      ctx.fillRect(px, py, size, size);
+    }
+  }
+};
+
+
+    // Auto-loop preview for manual browser testing
+    let startTime = null;
+    function previewLoop(timestamp) {
+      if (!startTime) startTime = timestamp;
+      const t = ((timestamp - startTime) / 1000) % 3.75;
+      if (window.film && window.film.frame) {
+        window.film.frame(t);
+      }
+      requestAnimationFrame(previewLoop);
+    }
+    requestAnimationFrame(previewLoop);
+  </script>
+</body>
+</html>

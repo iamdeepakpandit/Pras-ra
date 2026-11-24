@@ -1,0 +1,57 @@
+[
+  {
+    "id": "scene1",
+    "tag_pill": "The Great Divergence",
+    "tag_meta": "Adaptation vs Invention",
+    "text": "Every animal adapts to its world. We do the opposite: we adapt the world to us.",
+    "subtitle_html": "Every animal adapts to its world.<br><span class=\"hl\">We do the opposite: we adapt the world to us.</span>",
+    "image": "../assets/images/human_diff/scene1_fire_hand.jpg",
+    "audio": "../assets/voice_diff/scene1.mp3",
+    "duration": 6.6,
+    "audio_duration": 5.98
+  },
+  {
+    "id": "scene2",
+    "tag_pill": "Physical Limits",
+    "tag_meta": "Outmatched in the Wild",
+    "text": "Cheetahs have speed. Whales have depth. Physically, humans are outmatched by almost everything in nature.",
+    "subtitle_html": "Cheetahs have speed. Whales have depth.<br><span class=\"hl\">Physically, humans are outmatched by almost everything in nature.</span>",
+    "image": "../assets/images/human_diff/scene2_savannah.jpg",
+    "audio": "../assets/voice_diff/scene2.mp3",
+    "duration": 8.4,
+    "audio_duration": 7.78
+  },
+  {
+    "id": "scene3",
+    "tag_pill": "The Catalyst",
+    "tag_meta": "1,000,000 Years Ago",
+    "text": "Yet a million years ago, we did what no creature dared: we mastered fire. Cooking unlocked the energy that supercharged our brains.",
+    "subtitle_html": "Yet a million years ago, we did what no creature dared:<br><span class=\"hl\">we mastered fire, unlocking energy that supercharged our brains.</span>",
+    "image": "../assets/images/human_diff/scene3_campfire.jpg",
+    "audio": "../assets/voice_diff/scene3.mp3",
+    "duration": 10.0,
+    "audio_duration": 9.38
+  },
+  {
+    "id": "scene4",
+    "tag_pill": "Collective Fiction",
+    "tag_meta": "The Mythic Advantage",
+    "text": "Ants build cities through instinct. But humans build civilizations through imagination\u2014shared stories, laws, and ideals.",
+    "subtitle_html": "Ants build cities through instinct.<br><span class=\"hl\">Humans build civilizations through shared imagination\u2014stories, laws, and ideals.</span>",
+    "image": "../assets/images/human_diff/scene4_civilization.jpg",
+    "audio": "../assets/voice_diff/scene4.mp3",
+    "duration": 9.8,
+    "audio_duration": 9.19
+  },
+  {
+    "id": "scene5",
+    "tag_pill": "The Final Mirror",
+    "tag_meta": "Self-Awareness",
+    "text": "We are the only animals that contemplate our own existence... and the only ones with the power to protect, or destroy, the world that created us.",
+    "subtitle_html": "We are the only animals that contemplate our existence...<br><span class=\"hl\">and the only ones with the power to protect, or destroy, our world.</span>",
+    "image": "../assets/images/human_diff/scene5_contemplation.jpg",
+    "audio": "../assets/voice_diff/scene5.mp3",
+    "duration": 10.2,
+    "audio_duration": 9.36
+  }
+]

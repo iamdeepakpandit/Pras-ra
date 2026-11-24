@@ -1,0 +1,83 @@
+{
+  "project": "educational_showcase",
+  "resolution": [1280, 720],
+  "fps": 30,
+  "audio": {
+    "voice": "en-US-BrianNeural",
+    "rate": "+20%",
+    "bpm": 110,
+    "preset": "educational_ambient"
+  },
+  "scenes": [
+    {
+      "id": 1,
+      "chapter_num": "01",
+      "duration": 4.5,
+      "template": "editorial_chapter",
+      "headline": "THE CORE CONCEPT",
+      "subtitle": "EDITORIAL CHAPTER NAVIGATION",
+      "copy": "Alternating structured chapter navigation with dynamic visual demonstrations.",
+      "voiceover": "Welcome to the educational explainer. Chapter one establishes the editorial foundation."
+    },
+    {
+      "id": 2,
+      "chapter_num": "02",
+      "duration": 4.5,
+      "template": "scale_comparison",
+      "headline": "SCALE COMPARISON",
+      "subtitle": "MACRO VS MICRO ORDERS OF MAGNITUDE",
+      "copy": "Making abstract magnitude concrete with truthful scale ratios.",
+      "voiceover": "Scale comparison isolates entities against a dark void, proving magnitude through relative ratios."
+    },
+    {
+      "id": 3,
+      "chapter_num": "03",
+      "duration": 4.5,
+      "template": "whiteboard_drawing",
+      "headline": "LOGICAL DERIVATION",
+      "subtitle": "DERIVING CAUSE AND EFFECT",
+      "copy": "Simple hand-drawn sketches clarifying reasoning step by step.",
+      "voiceover": "Whiteboard drawing sketches causal relationships and derive solutions with zero visual clutter."
+    },
+    {
+      "id": 4,
+      "chapter_num": "04",
+      "duration": 4.5,
+      "template": "exploded_3d",
+      "headline": "3D ANATOMY BREAKDOWN",
+      "subtitle": "INTERNAL DEVICE ARCHITECTURE",
+      "copy": "Floating internal components apart with aligned label callouts.",
+      "voiceover": "The three D breakdown isolates internal mechanisms, revealing anatomy layer by layer."
+    },
+    {
+      "id": 5,
+      "chapter_num": "05",
+      "duration": 4.5,
+      "template": "data_infographic",
+      "headline": "DATA INFOGRAPHIC",
+      "subtitle": "QUANTITATIVE DISTRIBUTION",
+      "copy": "Truthful data graphics with growing bars and real-time percentages.",
+      "voiceover": "Data infographics display clear proportional distribution with high-contrast emphasis."
+    },
+    {
+      "id": 6,
+      "chapter_num": "06",
+      "duration": 4.5,
+      "template": "timeline",
+      "headline": "HISTORICAL TIMELINE",
+      "subtitle": "CHRONOLOGICAL MILESTONES",
+      "copy": "Mapping developments across time with verified milestone dates.",
+      "voiceover": "Timelines anchor progress across chronological milestones along a single verified axis."
+    },
+    {
+      "id": 7,
+      "chapter_num": "07",
+      "duration": 4.0,
+      "template": "quote_card",
+      "headline": "TEACH FIRST. DECORATE SECOND.",
+      "subtitle": "THE GOLDEN PRINCIPLE OF EDUCATIONAL MOTION",
+      "copy": "A single memorable takeaway landing on the rhythm of narration.",
+      "voiceover": "Teach first, decorate second. The golden rule of educational motion design."
+    }
+  ]
+}

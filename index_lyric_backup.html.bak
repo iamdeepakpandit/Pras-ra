@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --ground: #020817;
+        --ink: #ffffff;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: var(--ground);
+        font-family: 'Poppins', sans-serif;
+      }
+      #root {
+        position: relative;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+      }
+      .scene-slot {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 1080px;
+        height: 1920px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Root composition: Pal Pal lyric video (18.5s) -->
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="18.5"
+      data-width="1080"
+      data-height="1920"
+    >
+      <!-- Line 1: pal-pal jeena muhaal mera tere bina (0.00s - 4.28s) [Deep Blue] -->
+      <div
+        class="clip scene-slot"
+        id="slot-line1"
+        data-composition-id="line1"
+        data-composition-src="compositions/line1.html"
+        data-start="0"
+        data-duration="4.28"
+        data-track-index="0"
+      ></div>
+
+      <!-- Line 2: yeh saaray nashay bekaar teri aankhon ke siwa (4.28s - 8.80s) [Deep Blue] -->
+      <div
+        class="clip scene-slot"
+        id="slot-line2"
+        data-composition-id="line2"
+        data-composition-src="compositions/line2.html"
+        data-start="4.28"
+        data-duration="4.52"
+        data-track-index="0"
+      ></div>
+
+      <!-- Line 3: ghar nahi jaata, mein bahar (8.80s - 11.28s) [Wine Red Begins] -->
+      <div
+        class="clip scene-slot"
+        id="slot-line3"
+        data-composition-id="line3"
+        data-composition-src="compositions/line3.html"
+        data-start="8.80"
+        data-duration="2.48"
+        data-track-index="0"
+      ></div>
+
+      <!-- Line 4: rehta tera intezaar (11.28s - 13.58s) [Wine Red] -->
+      <div
+        class="clip scene-slot"
+        id="slot-line4"
+        data-composition-id="line4"
+        data-composition-src="compositions/line4.html"
+        data-start="11.28"
+        data-duration="2.30"
+        data-track-index="0"
+      ></div>
+
+      <!-- Line 5: mere khuwabon main aa naa kar ke solah singhaar (13.58s - 18.50s) [Wine Red] -->
+      <div
+        class="clip scene-slot"
+        id="slot-line5"
+        data-composition-id="line5"
+        data-composition-src="compositions/line5.html"
+        data-start="13.58"
+        data-duration="4.92"
+        data-track-index="0"
+      ></div>
+
+      <!-- Master Audio Track -->
+      <audio
+        id="master-audio"
+        src="assets/audio/pal_pal.mp3"
+        data-start="0"
+        data-duration="18.5"
+        data-has-audio="true"
+      ></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

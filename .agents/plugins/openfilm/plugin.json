@@ -1,0 +1,5 @@
+{
+  "name": "openfilm",
+  "description": "OpenFilm video agent plugin: connects OpenFilm MCP server, skills, and auto-routing rules.",
+  "version": "1.0.0"
+}

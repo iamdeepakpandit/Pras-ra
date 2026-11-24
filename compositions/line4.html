@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      * { margin:0; padding:0; box-sizing:border-box; }
+      html, body { width:1080px; height:1920px; overflow:hidden; background:#24040c; font-family:'Poppins', sans-serif; }
+      #root { position:relative; width:1080px; height:1920px; overflow:hidden; }
+      .clip { position:absolute; }
+      .full-frame { top:0; left:0; width:1080px; height:1920px; }
+
+      #bg-img {
+        width:1180px; height:2100px; object-fit:cover; object-position:center; display:block;
+        transform-origin:center center;
+        margin-left:-50px; margin-top:-90px;
+      }
+      .grain {
+        top:0; left:0; width:1080px; height:1920px;
+        background-image:url('../assets/images/lyric/film_grain.png');
+        background-repeat:repeat;
+        mix-blend-mode:overlay;
+        opacity:0.38;
+        pointer-events:none;
+        z-index:20;
+      }
+      #flash {
+        top:0; left:0; width:1080px; height:1920px;
+        background:#ffffff;
+        opacity:0;
+        pointer-events:none;
+        z-index:40;
+        mix-blend-mode:overlay;
+      }
+      .mosaic-layer {
+        top:0; left:0; width:1080px; height:1920px;
+        display:grid;
+        grid-template-columns:repeat(12, 90px);
+        grid-template-rows:repeat(20, 96px);
+        pointer-events:none;
+        z-index:30;
+        opacity:0;
+      }
+      .m-cell { background:#24040c; opacity:0; }
+
+      .word {
+        top:50%; left:50%;
+        transform:translate(-50%, -50%);
+        width:1020px;
+        height:240px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        text-align:center;
+        font-family:'Poppins', sans-serif;
+        font-weight:800;
+        font-size:155px;
+        line-height:1;
+        letter-spacing:-0.06em;
+        text-transform:lowercase;
+        color:#ffffff;
+        mix-blend-mode:difference;
+        pointer-events:none;
+        z-index:50;
+        opacity:0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Line 4: rehta tera intezaar (11.28s - 13.58s, duration 2.30s) -->
+    <div id="root" data-composition-id="line4" data-start="0" data-duration="2.30" data-width="1080" data-height="1920">
+      <img id="bg-img" class="clip full-frame" src="../assets/images/lyric/plate3_wine_street.jpg" alt="" width="1180" height="2100" data-start="0" data-duration="2.30" data-track-index="0" />
+      <div id="grain-layer" class="clip grain" data-start="0" data-duration="2.30" data-track-index="1"></div>
+      <div id="flash" class="clip" data-start="0" data-duration="2.30" data-track-index="2"></div>
+      <div id="mosaic" class="clip mosaic-layer" data-start="0" data-duration="2.30" data-track-index="3">
+        <div class="m-cell"></div><div class="m-cell"></div><div class="m-cell"></div><div class="m-cell"></div>
+      </div>
+
+      <div id="w-rehta" class="clip word" data-start="0.00" data-duration="0.68" data-track-index="4">rehta</div>
+      <div id="w-tera" class="clip word" data-start="0.68" data-duration="0.84" data-track-index="5">tera</div>
+      <div id="w-intezaar" class="clip word" data-start="1.52" data-duration="0.78" data-track-index="6">intezaar</div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      // Ken Burns: gentle drift right + slight zoom, waiting under the streetlamp
+      tl.fromTo('#bg-img',
+        { scale:1.0, x:0, y:0 },
+        { scale:1.05, x:-22, y:-10, duration:2.30, ease:'power1.inOut' }, 0);
+
+      // Flashes
+      tl.fromTo('#flash', { opacity:0.9 }, { opacity:0, duration:0.12, ease:'power2.out' }, 0.0);
+      tl.fromTo('#flash', { opacity:0.9 }, { opacity:0, duration:0.12, ease:'power2.out', immediateRender:false }, 1.52);
+
+      // Words
+      tl.fromTo('#w-rehta', { opacity:0, scale:0.92 }, { opacity:1, scale:1, duration:0.06 }, 0.00);
+      tl.to('#w-rehta', { opacity:0, scale:1.03, duration:0.05 }, 0.63);
+
+      tl.fromTo('#w-tera', { opacity:0, scale:0.92 }, { opacity:1, scale:1, duration:0.06 }, 0.68);
+      tl.to('#w-tera', { opacity:0, scale:1.03, duration:0.05 }, 1.46);
+
+      tl.fromTo('#w-intezaar', { opacity:0, scale:0.88 }, { opacity:1, scale:1, duration:0.08 }, 1.52);
+      tl.to('#w-intezaar', { opacity:0, scale:1.04, duration:0.06 }, 2.18);
+
+      // Mosaic dissolve
+      tl.fromTo('#mosaic', { opacity:0 }, { opacity:0.95, duration:0.10, ease:'steps(4)' }, 2.10);
+      tl.to('#mosaic', { opacity:0, duration:0.10, ease:'steps(4)' }, 2.20);
+
+      window.__timelines['line4'] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

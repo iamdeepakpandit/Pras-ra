@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280, height=720">
+  <title>Scene 2: SCALE COMPARISON</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { width: 1280px; height: 720px; overflow: hidden; background: #07070a; font-family: 'Inter', sans-serif; }
+    canvas { position: absolute; inset: 0; width: 1280px; height: 720px; }
+  </style>
+</head>
+<body>
+  <canvas id="c" width="1280" height="720"></canvas>
+  <script>
+    const canvas = document.getElementById('c');
+    const ctx = canvas.getContext('2d');
+    const W = 1280, H = 720;
+    
+window.film = {
+  frame(t) {
+    const p = Math.min(Math.max(t / 4.5, 0), 1);
+    ctx.fillStyle = '#060810';
+    ctx.fillRect(0, 0, W, H);
+
+    // Background cosmic star dust
+    ctx.fillStyle = 'rgba(255,255,255,0.4)';
+    for (let i = 0; i < 50; i++) {
+      const sx = (i * 137.5) % W;
+      const sy = (i * 263.3) % H;
+      ctx.fillRect(sx, sy, 2, 2);
+    }
+
+    // Title & Scale Ratio
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '800 52px "Inter", sans-serif';
+    ctx.fillText('SCALE COMPARISON', 100, 130);
+    ctx.fillStyle = '#ea580c';
+    ctx.font = '700 24px "Courier New", monospace';
+    ctx.fillText('RATIO 1 : 109 // PLANETARY MAGNITUDE', 100, 175);
+
+    // Small reference object (e.g. Earth)
+    const earthX = 350, earthY = H / 2 + 50;
+    ctx.fillStyle = '#38bdf8';
+    ctx.beginPath(); ctx.arc(earthX, earthY, 14, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '600 18px "Inter", sans-serif';
+    ctx.fillText('OBJECT A (1x)', earthX - 45, earthY + 45);
+
+    // Giant comparison object entering (e.g. Sun)
+    const giantR = 480;
+    const giantX = W - 350 + (1 - Math.min(t / 1.5, 1)) * 300;
+    const giantY = H / 2 + 50;
+    const sunGrad = ctx.createRadialGradient(giantX, giantY, 50, giantX, giantY, giantR);
+    sunGrad.addColorStop(0, '#fef08a');
+    sunGrad.addColorStop(0.5, '#f97316');
+    sunGrad.addColorStop(1, '#9a3412');
+    ctx.fillStyle = sunGrad;
+    ctx.beginPath(); ctx.arc(giantX, giantY, giantR, 0, Math.PI * 2); ctx.fill();
+
+    // Scale Ruler Line
+    ctx.strokeStyle = '#ea580c';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([8, 8]);
+    ctx.beginPath(); ctx.moveTo(earthX, earthY); ctx.lineTo(giantX, giantY); ctx.stroke();
+    ctx.setLineDash([]);
+  }
+};
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080, height=1920">
+  <title>Shot 1: घने जंगल की दास्तान</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: #04030a;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans Devanagari', sans-serif;
+      position: relative;
+    }
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1080px;
+      height: 1920px;
+    }
+    .overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 130px 60px 170px 60px;
+      z-index: 10;
+    }
+    .badge-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .tag-badge {
+      align-self: flex-start;
+      background: rgba(245, 158, 11, 0.2);
+      border: 1px solid rgba(245, 158, 11, 0.7);
+      color: #fbbf24;
+      padding: 10px 26px;
+      border-radius: 999px;
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      box-shadow: 0 0 24px rgba(245, 158, 11, 0.4);
+    }
+    .scene-title {
+      color: #ffffff;
+      font-size: 46px;
+      font-weight: 900;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.95);
+    }
+    .subtitle-box {
+      background: linear-gradient(180deg, rgba(10,8,22,0.8) 0%, rgba(10,8,22,0.98) 100%);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-left: 6px solid #fbbf24;
+      padding: 24px 34px;
+      border-radius: 16px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 16px 36px rgba(0,0,0,0.85);
+    }
+    .subtitle-text {
+      color: #f8fafc;
+      font-size: 36px;
+      line-height: 1.45;
+      font-weight: 700;
+    }
+    .fairy-dust {
+      position: absolute;
+      inset: 0;
+      opacity: 0.05;
+      pointer-events: none;
+      background-image: radial-gradient(#fbbf24 1px, transparent 1px);
+      background-size: 5px 5px;
+      z-index: 5;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="cv" width="1080" height="1920"></canvas>
+  <div class="fairy-dust"></div>
+  <div class="overlay">
+    <div class="badge-wrap">
+      <div class="tag-badge">*अनोखा रहस्य*</div>
+      <div class="scene-title">घने जंगल की दास्तान</div>
+    </div>
+    <div class="subtitle-box">
+      <p class="subtitle-text">गांव के उस रहस्यमयी जंगल में, जहां सूरज की किरणें भी जाने से डरती थीं...</p>
+    </div>
+  </div>
+
+  <script>
+    const cv = document.getElementById('cv');
+    const ctx = cv.getContext('2d');
+
+    function sfc32(a, b, c, d) {
+      return function() {
+        a >>>= 0; b >>>= 0; c >>>= 0; d >>>= 0; 
+        var t = (a + b | 0) + d | 0;
+        d = d + 1 | 0;
+        a = b ^ b >>> 9;
+        b = c + (c << 3) | 0;
+        c = (c << 21 | c >>> 11);
+        c = c + t | 0;
+        return (t >>> 0) / 4294967296;
+      }
+    }
+
+    
+function drawFrame(t) {
+  // Deep twilight night sky with purple mystical mist
+  const skyGrad = ctx.createLinearGradient(0, 0, 0, 1920);
+  skyGrad.addColorStop(0, '#0a0618');
+  skyGrad.addColorStop(0.5, '#120b29');
+  skyGrad.addColorStop(1, '#05030d');
+  ctx.fillStyle = skyGrad;
+  ctx.fillRect(0, 0, 1080, 1920);
+
+  // Twinkling stars in sky
+  const rand = sfc32(101, 202, 303, 404);
+  for (let i = 0; i < 90; i++) {
+    const sx = rand() * 1080;
+    const sy = rand() * 700;
+    const twinkle = 0.3 + 0.7 * Math.sin(t * 3 + i * 2);
+    ctx.beginPath();
+    ctx.arc(sx, sy, 1.5 + rand() * 2, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(254, 240, 138, ' + twinkle + ')';
+    ctx.fill();
+  }
+
+  // Giant Full Moon with soft silver-amber rim
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(820, 420, 140, 0, Math.PI * 2);
+  const moonGrad = ctx.createRadialGradient(820, 420, 40, 820, 420, 140);
+  moonGrad.addColorStop(0, '#fef9c3');
+  moonGrad.addColorStop(0.8, '#fde047');
+  moonGrad.addColorStop(1, 'rgba(253, 224, 71, 0)');
+  ctx.fillStyle = moonGrad;
+  ctx.shadowColor = '#fde047';
+  ctx.shadowBlur = 60;
+  ctx.fill();
+  ctx.shadowBlur = 0;
+  ctx.restore();
+
+  // Ancient Spooky Tree Trunk Silhouette
+  ctx.fillStyle = '#080514';
+  ctx.beginPath();
+  ctx.moveTo(340, 1920);
+  ctx.bezierCurveTo(380, 1300, 240, 900, 360, 600);
+  ctx.bezierCurveTo(460, 350, 720, 250, 920, 180);
+  ctx.lineTo(960, 260);
+  ctx.bezierCurveTo(740, 360, 540, 500, 460, 760);
+  ctx.bezierCurveTo(400, 1020, 580, 1380, 620, 1920);
+  ctx.closePath();
+  ctx.fill();
+
+  // Glowing spiral runes on the tree bark
+  ctx.save();
+  ctx.strokeStyle = 'rgba(168, 85, 247, ' + (0.4 + 0.3 * Math.sin(t * 3)) + ')';
+  ctx.lineWidth = 4;
+  ctx.shadowColor = '#c084fc';
+  ctx.shadowBlur = 18;
+  ctx.beginPath();
+  ctx.arc(420, 1100, 60 + Math.sin(t * 2) * 8, 0, 1.8 * Math.PI);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(420, 1100, 35, 0.4 * Math.PI, 2.2 * Math.PI);
+  ctx.stroke();
+  ctx.shadowBlur = 0;
+  ctx.restore();
+
+  // Floating magical fireflies (35 particles with sine movement)
+  for (let f = 0; f < 35; f++) {
+    const fx = (f * 32 + Math.sin(t * 2 + f) * 60) % 1080;
+    const fy = 800 + (f * 26 + Math.cos(t * 1.5 + f) * 70) % 950;
+    const glow = 0.4 + 0.6 * Math.sin(t * 4 + f * 3);
+    ctx.beginPath();
+    ctx.arc(fx, fy, 4 + Math.sin(t + f) * 2, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(52, 211, 153, ' + glow + ')';
+    ctx.shadowColor = '#34d399';
+    ctx.shadowBlur = 16;
+    ctx.fill();
+    ctx.shadowBlur = 0;
+  }
+
+  // Boy Silhouette (Aarav) holding glowing lantern on bottom left
+  ctx.save();
+  ctx.translate(220, 1540);
+  // Aarav silhouette
+  ctx.fillStyle = '#060411';
+  ctx.beginPath();
+  ctx.arc(0, -110, 38, 0, Math.PI * 2); // Head
+  ctx.fill();
+  ctx.fillRect(-26, -70, 52, 110); // Body
+  // Lantern held in hand
+  ctx.beginPath();
+  ctx.moveTo(35, -30);
+  ctx.lineTo(85, -20);
+  ctx.strokeStyle = '#060411';
+  ctx.lineWidth = 8;
+  ctx.stroke();
+  // Glowing warm lantern
+  ctx.beginPath();
+  ctx.arc(85, -5, 24, 0, Math.PI * 2);
+  ctx.fillStyle = '#f59e0b';
+  ctx.shadowColor = '#fbbf24';
+  ctx.shadowBlur = 40;
+  ctx.fill();
+  ctx.shadowBlur = 0;
+  ctx.restore();
+}
+
+
+    window.film = {
+      frame(t) {
+        drawFrame(t);
+      }
+    };
+
+    window.film.frame(0);
+  </script>
+</body>
+</html>

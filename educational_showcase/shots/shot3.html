@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280, height=720">
+  <title>Scene 3: LOGICAL DERIVATION</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { width: 1280px; height: 720px; overflow: hidden; background: #07070a; font-family: 'Inter', sans-serif; }
+    canvas { position: absolute; inset: 0; width: 1280px; height: 720px; }
+  </style>
+</head>
+<body>
+  <canvas id="c" width="1280" height="720"></canvas>
+  <script>
+    const canvas = document.getElementById('c');
+    const ctx = canvas.getContext('2d');
+    const W = 1280, H = 720;
+    
+window.film = {
+  frame(t) {
+    const p = Math.min(Math.max(t / 4.5, 0), 1);
+    ctx.fillStyle = '#f8f9fa';
+    ctx.fillRect(0, 0, W, H);
+
+    // Hand-drawn sketch title
+    ctx.fillStyle = '#1e293b';
+    ctx.font = '800 52px "Inter", sans-serif';
+    ctx.fillText('LOGICAL DERIVATION', 120, 140);
+    ctx.font = '600 24px "Inter", sans-serif';
+    ctx.fillStyle = '#64748b';
+    ctx.fillText('DERIVING CAUSE AND EFFECT', 120, 185);
+
+    // Logic Deduction Boxes (animated stroke draw-on)
+    ctx.strokeStyle = '#0f172a';
+    ctx.lineWidth = 3;
+    const boxW = 320, boxH = 180;
+    
+    // Box 1 (Cause)
+    ctx.strokeRect(180, H / 2 - 90, boxW, boxH);
+    ctx.fillStyle = '#0f172a';
+    ctx.font = '700 26px "Inter", sans-serif';
+    ctx.fillText('CAUSE / INPUT', 220, H / 2 - 10);
+
+    // Arrow drawing
+    if (t > 1.0) {
+      const arrowP = Math.min((t - 1.0) / 0.8, 1);
+      ctx.strokeStyle = '#ea580c';
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.moveTo(520, H / 2);
+      ctx.lineTo(520 + 260 * arrowP, H / 2);
+      ctx.stroke();
+    }
+
+    // Box 2 (Effect)
+    if (t > 1.8) {
+      ctx.strokeStyle = '#0f172a';
+      ctx.lineWidth = 3;
+      ctx.strokeRect(800, H / 2 - 90, boxW, boxH);
+      ctx.fillStyle = '#ea580c';
+      ctx.font = '700 26px "Inter", sans-serif';
+      ctx.fillText('OUTPUT / RESULT', 830, H / 2 - 10);
+    }
+  }
+};
+
+  </script>
+</body>
+</html>

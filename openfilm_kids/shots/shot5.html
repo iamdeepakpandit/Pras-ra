@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080, height=1920">
+  <title>Shot 5: रोशनी का जादुई संसार</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: #04030a;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans Devanagari', sans-serif;
+      position: relative;
+    }
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1080px;
+      height: 1920px;
+    }
+    .overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 130px 60px 170px 60px;
+      z-index: 10;
+    }
+    .badge-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .tag-badge {
+      align-self: flex-start;
+      background: rgba(245, 158, 11, 0.2);
+      border: 1px solid rgba(245, 158, 11, 0.7);
+      color: #fbbf24;
+      padding: 10px 26px;
+      border-radius: 999px;
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      box-shadow: 0 0 24px rgba(245, 158, 11, 0.4);
+    }
+    .scene-title {
+      color: #ffffff;
+      font-size: 46px;
+      font-weight: 900;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.95);
+    }
+    .subtitle-box {
+      background: linear-gradient(180deg, rgba(10,8,22,0.8) 0%, rgba(10,8,22,0.98) 100%);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-left: 6px solid #fbbf24;
+      padding: 24px 34px;
+      border-radius: 16px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 16px 36px rgba(0,0,0,0.85);
+    }
+    .subtitle-text {
+      color: #f8fafc;
+      font-size: 36px;
+      line-height: 1.45;
+      font-weight: 700;
+    }
+    .fairy-dust {
+      position: absolute;
+      inset: 0;
+      opacity: 0.05;
+      pointer-events: none;
+      background-image: radial-gradient(#fbbf24 1px, transparent 1px);
+      background-size: 5px 5px;
+      z-index: 5;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="cv" width="1080" height="1920"></canvas>
+  <div class="fairy-dust"></div>
+  <div class="overlay">
+    <div class="badge-wrap">
+      <div class="tag-badge">*चमत्कारी अंत*</div>
+      <div class="scene-title">रोशनी का जादुई संसार</div>
+    </div>
+    <div class="subtitle-box">
+      <p class="subtitle-text">और बाहर निकला एक नन्हा जादुई जुगनू, जिसने पूरे जंगल को चमका दिया!</p>
+    </div>
+  </div>
+
+  <script>
+    const cv = document.getElementById('cv');
+    const ctx = cv.getContext('2d');
+
+    function sfc32(a, b, c, d) {
+      return function() {
+        a >>>= 0; b >>>= 0; c >>>= 0; d >>>= 0; 
+        var t = (a + b | 0) + d | 0;
+        d = d + 1 | 0;
+        a = b ^ b >>> 9;
+        b = c + (c << 3) | 0;
+        c = (c << 21 | c >>> 11);
+        c = c + t | 0;
+        return (t >>> 0) / 4294967296;
+      }
+    }
+
+    
+function drawFrame(t) {
+  // Radiant Golden & Celestial Blue Wonderland
+  const burstGrad = ctx.createRadialGradient(540, 880, 80, 540, 880, 750);
+  burstGrad.addColorStop(0, '#fef9c3');
+  burstGrad.addColorStop(0.3, '#fde047');
+  burstGrad.addColorStop(0.7, '#38bdf8');
+  burstGrad.addColorStop(1, '#0c1a3b');
+  ctx.fillStyle = burstGrad;
+  ctx.fillRect(0, 0, 1080, 1920);
+
+  // Rotating celestial sunburst rays from chest
+  ctx.save();
+  ctx.translate(540, 880);
+  ctx.rotate(t * 0.4);
+  for (let r = 0; r < 24; r++) {
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    const angle = r * (Math.PI / 12);
+    ctx.lineTo(Math.cos(angle) * 1100, Math.sin(angle) * 1100);
+    ctx.strokeStyle = (r % 2 === 0) ? 'rgba(254, 240, 138, 0.35)' : 'rgba(56, 189, 248, 0.25)';
+    ctx.lineWidth = 18;
+    ctx.stroke();
+  }
+  ctx.restore();
+
+  // Open Chest at bottom center
+  ctx.save();
+  ctx.translate(540, 1350);
+  ctx.fillStyle = '#78350f';
+  ctx.fillRect(-220, 0, 440, 180);
+  ctx.strokeStyle = '#f59e0b';
+  ctx.lineWidth = 8;
+  ctx.strokeRect(-220, 0, 440, 180);
+  // Chest open lid flipped back
+  ctx.beginPath();
+  ctx.ellipse(0, -30, 240, 50, 0, 0, Math.PI * 2);
+  ctx.fillStyle = '#fef08a';
+  ctx.shadowColor = '#fbbf24';
+  ctx.shadowBlur = 60;
+  ctx.fill();
+  ctx.shadowBlur = 0;
+  ctx.restore();
+
+  // The Cute Giant Magical Star Firefly rising into air
+  const spriteY = 920 - Math.min(220, t * 75) + Math.sin(t * 5) * 20;
+  const spriteX = 540 + Math.sin(t * 3) * 60;
+  ctx.save();
+  ctx.translate(spriteX, spriteY);
+
+  // Shimmering translucent fairy wings (flapping)
+  const flap = Math.sin(t * 22) * 0.4;
+  ctx.save();
+  ctx.scale(1.0, 1.0 + flap);
+  // Left wing
+  ctx.beginPath();
+  ctx.ellipse(-90, -40, 80, 40, -0.3, 0, Math.PI * 2);
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.75)';
+  ctx.shadowColor = '#67e8f9';
+  ctx.shadowBlur = 25;
+  ctx.fill();
+  // Right wing
+  ctx.beginPath();
+  ctx.ellipse(90, -40, 80, 40, 0.3, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.shadowBlur = 0;
+  ctx.restore();
+
+  // Glowing glowing body (Golden orb)
+  ctx.beginPath();
+  ctx.arc(0, 0, 75, 0, Math.PI * 2);
+  ctx.fillStyle = '#fef08a';
+  ctx.shadowColor = '#f59e0b';
+  ctx.shadowBlur = 50;
+  ctx.fill();
+  ctx.shadowBlur = 0;
+
+  // Cute Big Cartoon Eyes
+  ctx.fillStyle = '#0f172a';
+  // Left eye
+  ctx.beginPath();
+  ctx.arc(-24, -10, 14, 0, Math.PI * 2);
+  ctx.fill();
+  // Right eye
+  ctx.beginPath();
+  ctx.arc(24, -10, 14, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Eye sparkle highlights
+  ctx.fillStyle = '#ffffff';
+  ctx.beginPath(); ctx.arc(-20, -14, 5, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.arc(28, -14, 5, 0, Math.PI * 2); ctx.fill();
+
+  // Cute Smiling Mouth
+  ctx.beginPath();
+  ctx.arc(0, 14, 20, 0, Math.PI, false);
+  ctx.strokeStyle = '#0f172a';
+  ctx.lineWidth = 5;
+  ctx.stroke();
+
+  // Rosy cheeks
+  ctx.fillStyle = 'rgba(251, 113, 133, 0.6)';
+  ctx.beginPath(); ctx.arc(-42, 10, 12, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.arc(42, 10, 12, 0, Math.PI * 2); ctx.fill();
+
+  ctx.restore();
+
+  // Floating sparkling stars trail
+  for (let s = 0; s < 30; s++) {
+    const spX = (spriteX - 150 + (s * 35) % 300) + Math.sin(t * 3 + s) * 30;
+    const spY = (spriteY + 80 + (s * 25) % 350) + Math.cos(t * 2 + s) * 20;
+    ctx.beginPath();
+    ctx.arc(spX, spY, 3 + Math.sin(t * 4 + s) * 2, 0, Math.PI * 2);
+    ctx.fillStyle = '#ffffff';
+    ctx.shadowColor = '#fef08a';
+    ctx.shadowBlur = 10;
+    ctx.fill();
+    ctx.shadowBlur = 0;
+  }
+}
+
+
+    window.film = {
+      frame(t) {
+        drawFrame(t);
+      }
+    };
+
+    window.film.frame(0);
+  </script>
+</body>
+</html>

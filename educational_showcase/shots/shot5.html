@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280, height=720">
+  <title>Scene 5: DATA INFOGRAPHIC</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { width: 1280px; height: 720px; overflow: hidden; background: #07070a; font-family: 'Inter', sans-serif; }
+    canvas { position: absolute; inset: 0; width: 1280px; height: 720px; }
+  </style>
+</head>
+<body>
+  <canvas id="c" width="1280" height="720"></canvas>
+  <script>
+    const canvas = document.getElementById('c');
+    const ctx = canvas.getContext('2d');
+    const W = 1280, H = 720;
+    
+window.film = {
+  frame(t) {
+    const p = Math.min(Math.max(t / 4.5, 0), 1);
+    ctx.fillStyle = '#080d1a';
+    ctx.fillRect(0, 0, W, H);
+
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '800 52px "Inter", sans-serif';
+    ctx.fillText('DATA INFOGRAPHIC', 100, 130);
+    ctx.fillStyle = '#ea580c';
+    ctx.font = '700 20px "Courier New", monospace';
+    ctx.fillText('QUANTITATIVE METRIC & DISTRIBUTION', 100, 175);
+
+    // Bar chart growth
+    const bars = [
+      { label: 'CATEGORY A', val: 0.88, color: '#ea580c' },
+      { label: 'CATEGORY B', val: 0.65, color: '#38bdf8' },
+      { label: 'CATEGORY C', val: 0.42, color: '#a855f7' },
+      { label: 'CATEGORY D', val: 0.25, color: '#64748b' }
+    ];
+
+    const startY = 280, barH = 50, gap = 80;
+    bars.forEach((b, i) => {
+      const by = startY + i * gap;
+      const bw = (W - 550) * b.val * Math.min(t / 1.5, 1.0);
+
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = '700 20px "Inter", sans-serif';
+      ctx.fillText(b.label, 100, by + 32);
+
+      ctx.fillStyle = b.color;
+      ctx.fillRect(320, by, bw, barH);
+
+      // Percentage counter
+      const currentPct = Math.round(b.val * 100 * Math.min(t / 1.5, 1.0));
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '800 24px "Inter", sans-serif';
+      ctx.fillText(`${currentPct}%`, 340 + bw, by + 35);
+    });
+  }
+};
+
+  </script>
+</body>
+</html>

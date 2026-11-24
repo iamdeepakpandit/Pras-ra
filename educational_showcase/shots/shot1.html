@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280, height=720">
+  <title>Scene 1: THE CORE CONCEPT</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { width: 1280px; height: 720px; overflow: hidden; background: #07070a; font-family: 'Inter', sans-serif; }
+    canvas { position: absolute; inset: 0; width: 1280px; height: 720px; }
+  </style>
+</head>
+<body>
+  <canvas id="c" width="1280" height="720"></canvas>
+  <script>
+    const canvas = document.getElementById('c');
+    const ctx = canvas.getContext('2d');
+    const W = 1280, H = 720;
+    
+window.film = {
+  frame(t) {
+    const p = Math.min(Math.max(t / 4.5, 0), 1);
+    ctx.fillStyle = '#0f1015';
+    ctx.fillRect(0, 0, W, H);
+
+    // Vignette background
+    const bg = ctx.createRadialGradient(W * 0.35, H * 0.45, 100, W / 2, H / 2, 900);
+    bg.addColorStop(0, '#171922');
+    bg.addColorStop(1, '#090a0e');
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, W, H);
+
+    // Left Column: Editorial Information
+    const leftX = 100;
+    // Orange chapter number
+    ctx.fillStyle = '#ea580c';
+    ctx.font = '900 36px "Inter", sans-serif';
+    ctx.fillText('01', leftX, 160);
+
+    // Large Chapter Heading
+    ctx.fillStyle = '#f8fafc';
+    ctx.font = '800 58px "Inter", sans-serif';
+    ctx.fillText('THE CORE CONCEPT', leftX, 240);
+
+    // Supporting Explanatory Copy
+    ctx.fillStyle = '#94a3b8';
+    ctx.font = '400 24px "Inter", sans-serif';
+    ctx.fillText('EDITORIAL CHAPTER NAVIGATION', leftX, 290);
+
+    ctx.fillStyle = '#64748b';
+    ctx.font = '400 18px "Courier New", monospace';
+    ctx.fillText('Alternating structured chapter navigation with dynamic visua', leftX, 350);
+
+    // Right Demonstration Window (The Showcase Inset)
+    const winX = W * 0.42, winY = 120, winW = W * 0.52, winH = H - 240;
+    ctx.save();
+    ctx.fillStyle = '#05070a';
+    ctx.shadowColor = 'rgba(0,0,0,0.8)';
+    ctx.shadowBlur = 30;
+    ctx.fillRect(winX, winY, winW, winH);
+    ctx.shadowBlur = 0;
+
+    // Window border
+    ctx.strokeStyle = 'rgba(234, 88, 12, 0.4)';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(winX, winY, winW, winH);
+
+    // Demo Canvas Action inside window
+    const cx = winX + winW / 2;
+    const cy = winY + winH / 2;
+    const rot = t * 1.4;
+    ctx.strokeStyle = '#ea580c';
+    ctx.lineWidth = 3;
+    ctx.strokeRect(cx - 100, cy - 100, 200, 200);
+    ctx.beginPath();
+    ctx.arc(cx, cy, 70 + 20 * Math.sin(t * 3), 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.restore();
+  }
+};
+
+  </script>
+</body>
+</html>

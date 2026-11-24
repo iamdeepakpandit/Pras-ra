@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "openfilm": {
+      "command": "node",
+      "args": ["server.cjs"],
+      "env": {}
+    }
+  }
+}

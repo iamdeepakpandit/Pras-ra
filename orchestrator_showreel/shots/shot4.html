@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, height=1080">
+  <title>Scene 4: ANTIGRAVITY</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { width: 1920px; height: 1080px; overflow: hidden; background: #07070a; font-family: 'Inter', sans-serif; }
+    canvas { position: absolute; inset: 0; width: 1920px; height: 1080px; }
+  </style>
+</head>
+<body>
+  <canvas id="c" width="1920" height="1080"></canvas>
+  <script>
+    const canvas = document.getElementById('c');
+    const ctx = canvas.getContext('2d');
+    const W = 1920, H = 1080;
+    
+window.film = {
+  frame(t) {
+    ctx.fillStyle = '#07070a';
+    ctx.fillRect(0, 0, W, H);
+
+    ctx.save();
+    ctx.translate(W / 2, H / 2);
+    for (let r = 1; r <= 8; r++) {
+      const rad = Math.max(10, r * 85 + (t * 120) % 85);
+      ctx.strokeStyle = 'rgba(237, 73, 56, 0.35)';
+      ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.arc(0, 0, rad, 0, Math.PI * 2); ctx.stroke();
+    }
+    ctx.restore();
+
+    ctx.save();
+    ctx.translate(W / 2, H / 2);
+    ctx.font = '900 135px "Arial Black", Impact, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = '#ffffff';
+    ctx.shadowColor = '#ed4938';
+    ctx.shadowBlur = 40;
+    ctx.fillText('ANTIGRAVITY', 0, 0);
+    ctx.shadowBlur = 0;
+    ctx.font = '700 30px "Inter", sans-serif';
+    ctx.fillStyle = '#ed4938';
+    ctx.fillText('SHIPPING PRODUCTION FILMS IN SECONDS', 0, 90);
+    ctx.restore();
+  }
+};
+
+  </script>
+</body>
+</html>

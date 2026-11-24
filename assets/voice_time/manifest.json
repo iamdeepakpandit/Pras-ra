@@ -1,0 +1,32 @@
+[
+  {
+    "id": "scene1",
+    "text": "Nobody actually runs out of time. You just trade hours for things you won't remember by Friday.",
+    "mp3": "assets/voice_time\\scene1.mp3",
+    "duration": 7.25
+  },
+  {
+    "id": "scene2",
+    "text": "Every January we swear this is the year we lock in. By February we're optimizing our recovery from planning.",
+    "mp3": "assets/voice_time\\scene2.mp3",
+    "duration": 8.16
+  },
+  {
+    "id": "scene3",
+    "text": "Busyness feels like progress because your brain confuses noise with momentum. Checking ten boxes doesn't mean you moved an inch.",
+    "mp3": "assets/voice_time\\scene3.mp3",
+    "duration": 9.1
+  },
+  {
+    "id": "scene4",
+    "text": "The scariest part isn't failing. It's waking up three years later with a clean feed and zero proof you lived.",
+    "mp3": "assets/voice_time\\scene4.mp3",
+    "duration": 7.92
+  },
+  {
+    "id": "scene5",
+    "text": "Anyway... see you tomorrow. Until we meet again.",
+    "mp3": "assets/voice_time\\scene5.mp3",
+    "duration": 4.9
+  }
+]

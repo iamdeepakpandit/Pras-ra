@@ -1,0 +1,18 @@
+{
+  "source": "C:\\Users\\c-deepak.sharma\\Desktop\\content\\reference videos\\2.mp4",
+  "duration": 10.026667,
+  "dimensions": {
+    "width": 1280,
+    "height": 720,
+    "aspect_ratio": "1280:720"
+  },
+  "fps": "24/1",
+  "audio_rms": 3161.5,
+  "transcript": "I need to get out of here. Not today, Copper. Where is that car? Almost there. Got you!",
+  "frames": [
+    "reference_analysis\\2_t1.0s.jpg",
+    "reference_analysis\\2_t3.51s.jpg",
+    "reference_analysis\\2_t6.52s.jpg",
+    "reference_analysis\\2_t9.02s.jpg"
+  ]
+}

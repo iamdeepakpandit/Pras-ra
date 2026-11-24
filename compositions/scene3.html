@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      :root { --cyan: #38bdf8; --ink: #ffffff; }
+      * { margin:0; padding:0; box-sizing:border-box; }
+      html, body { width:1080px; height:1920px; overflow:hidden; background:#020817; font-family:'Poppins', sans-serif; }
+      #root { position:relative; width:1080px; height:1920px; overflow:hidden; }
+      .clip { position:absolute; }
+      .full-frame { top:0; left:0; width:1080px; height:1920px; }
+      #bg-img {
+        width:1160px; height:2060px; object-fit:cover; object-position:center; display:block;
+        transform-origin:center center; margin-left:-40px; margin-top:-70px;
+      }
+      .grad-bot {
+        bottom:0; left:0; width:1080px; height:750px;
+        background:linear-gradient(to top, rgba(2,8,23,0.96) 0%, rgba(2,8,23,0.75) 50%, transparent 100%);
+        pointer-events:none; z-index:10;
+      }
+      .grad-top {
+        top:0; left:0; width:1080px; height:450px;
+        background:linear-gradient(to bottom, rgba(2,8,23,0.85) 0%, transparent 100%);
+        pointer-events:none; z-index:10;
+      }
+      .grain {
+        top:0; left:0; width:1080px; height:1920px;
+        background-image:url('../assets/images/lyric/film_grain.png');
+        background-repeat:repeat; mix-blend-mode:overlay; opacity:0.35;
+        pointer-events:none; z-index:20;
+      }
+      .tag-box {
+        top:160px; left:80px; width:920px; display:flex; align-items:center; gap:16px;
+        pointer-events:none; z-index:30; opacity:0;
+      }
+      .tag-pill {
+        background:rgba(56,189,248,0.15); border:1px solid rgba(56,189,248,0.4);
+        padding:8px 20px; border-radius:30px; font-size:28px; font-weight:700;
+        letter-spacing:0.15em; text-transform:uppercase; color:var(--cyan);
+      }
+      .tag-meta { font-size:28px; font-weight:600; letter-spacing:0.1em; color:rgba(255,255,255,0.6); text-transform:uppercase; }
+      .sub-box {
+        bottom:200px; left:80px; width:920px; min-height:220px;
+        display:flex; flex-direction:column; justify-content:flex-end; pointer-events:none; z-index:30; opacity:0;
+      }
+      .sub-text { font-size:48px; line-height:1.35; font-weight:700; color:#ffffff; text-shadow:0 4px 24px rgba(0,0,0,0.95); }
+      .hl { color:var(--cyan); text-shadow:0 0 30px rgba(56,189,248,0.6); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="scene3" data-start="0" data-duration="10.00" data-width="1080" data-height="1920">
+      <img id="bg-img" class="clip full-frame" data-layout-allow-overflow="true" src="../assets/images/human_diff/scene3_campfire.jpg" alt="" data-start="0" data-duration="10.00" data-track-index="0" />
+      <div id="grad-top-3" class="clip grad-top" data-start="0" data-duration="10.00" data-track-index="1"></div>
+      <div id="grad-bot-3" class="clip grad-bot" data-start="0" data-duration="10.00" data-track-index="2"></div>
+      <div id="grain-3" class="clip grain" data-start="0" data-duration="10.00" data-track-index="3"></div>
+
+      <div id="tag-3" class="clip tag-box" data-start="0" data-duration="10.00" data-track-index="4">
+        <span class="tag-pill">The Catalyst</span>
+        <span class="tag-meta">1,000,000 Years Ago</span>
+      </div>
+
+      <div id="sub-3" class="clip sub-box" data-start="0" data-duration="10.00" data-track-index="5">
+        <p class="sub-text">Yet a million years ago, we did what no creature dared:<br><span class="hl">we mastered fire, unlocking energy that supercharged our brains.</span></p>
+      </div>
+
+      <audio id="vo-3" src="../assets/voice_diff/scene3.mp3" data-start="0.20" data-duration="9.38" data-hf-media-start-basis="local" data-has-audio="true"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      tl.to('#bg-img', { scale: 1.08, duration: 10.00, ease: 'none' }, 0);
+      tl.fromTo('#tag-3', { opacity: 0, y: -15 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, 0.2);
+      tl.fromTo('#sub-3', { opacity: 0, y: 25 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, 0.4);
+      window.__timelines['scene3'] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

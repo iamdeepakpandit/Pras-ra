@@ -1,0 +1,18 @@
+{
+  "source": "C:\\Users\\c-deepak.sharma\\Desktop\\content\\reference videos\\1.mp4",
+  "duration": 10.026667,
+  "dimensions": {
+    "width": 1280,
+    "height": 720,
+    "aspect_ratio": "1280:720"
+  },
+  "fps": "24/1",
+  "audio_rms": 2718.4,
+  "transcript": "جانور صرف ورطمان میں ζیتے ہیں مگر انسان سپنے دیکھتا ہے وہ کلا سوچ اور کلپنا سے بھوشش کا نرمان کرتا ہے",
+  "frames": [
+    "reference_analysis\\1_t1.0s.jpg",
+    "reference_analysis\\1_t3.51s.jpg",
+    "reference_analysis\\1_t6.52s.jpg",
+    "reference_analysis\\1_t9.02s.jpg"
+  ]
+}

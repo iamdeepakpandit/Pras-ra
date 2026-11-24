@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280, height=720">
+  <title>Scene 7: TEACH FIRST. DECORATE SECOND.</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { width: 1280px; height: 720px; overflow: hidden; background: #07070a; font-family: 'Inter', sans-serif; }
+    canvas { position: absolute; inset: 0; width: 1280px; height: 720px; }
+  </style>
+</head>
+<body>
+  <canvas id="c" width="1280" height="720"></canvas>
+  <script>
+    const canvas = document.getElementById('c');
+    const ctx = canvas.getContext('2d');
+    const W = 1280, H = 720;
+    
+window.film = {
+  frame(t) {
+    ctx.fillStyle = '#0a0a0c';
+    ctx.fillRect(0, 0, W, H);
+
+    ctx.save();
+    ctx.translate(W / 2, H / 2);
+
+    // Orange highlight block behind key phrase
+    ctx.fillStyle = '#ea580c';
+    ctx.fillRect(-550, -40, 1100, 80);
+
+    ctx.font = '900 68px "Inter", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText('TEACH FIRST. DECORATE SECOND.', 0, 0);
+
+    ctx.font = '600 26px "Courier New", monospace';
+    ctx.fillStyle = '#f8fafc';
+    ctx.fillText('THE GOLDEN PRINCIPLE OF EDUCATIONAL MOTION', 0, 90);
+    ctx.restore();
+  }
+};
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+[
+  {
+    "id": "scene1",
+    "tag_pill": "Not Running Out Of Time",
+    "tag_meta": "Gravity Defied",
+    "text": "Nobody actually runs out of time. You just trade hours for things you won't remember by Friday.",
+    "subtitle_html": "Nobody actually runs out of time.<br><span class=\"hl-green\">You just trade hours for things you won't remember by Friday.</span>",
+    "image": "../assets/images/time/scene1_hourglass_up.jpg",
+    "audio": "../assets/voice_time/scene1.mp3",
+    "duration": 6.00,
+    "audio_duration": 5.40
+  },
+  {
+    "id": "scene2",
+    "tag_pill": "Locking In (Feb Edition)",
+    "tag_meta": "The Shadow",
+    "text": "Every January we swear this is the year we lock in. By February we're optimizing our recovery from planning.",
+    "subtitle_html": "Every January we swear this is the year we lock in.<br><span class=\"hl-cyan\">By February we're optimizing our 'recovery' from planning.</span>",
+    "image": "../assets/images/time/scene2_silhouette_rain.jpg",
+    "audio": "../assets/voice_time/scene2.mp3",
+    "duration": 9.00,
+    "audio_duration": 8.40
+  },
+  {
+    "id": "scene3",
+    "tag_pill": "Noise ≠ Momentum",
+    "tag_meta": "Busyness vs Momentum",
+    "text": "Busyness feels like progress because your brain confuses noise with momentum. Checking ten boxes doesn't mean you moved an inch.",
+    "subtitle_html": "Busyness feels like progress because your brain confuses noise with momentum.<br><span class=\"hl-green\">Checking ten boxes doesn't mean you moved an inch.</span>",
+    "image": "../assets/images/time/scene3_split_screen.jpg",
+    "audio": "../assets/voice_time/scene3.mp3",
+    "duration": 11.00,
+    "audio_duration": 10.30
+  },
+  {
+    "id": "scene4",
+    "tag_pill": "Three Years Later...",
+    "tag_meta": "The Freeze",
+    "text": "The scariest part isn't failing. It's waking up three years later with a clean feed and zero proof you lived.",
+    "subtitle_html": "The scariest part isn't failing.<br><span class=\"hl-cyan\">It's waking up three years later with a clean feed and zero proof you lived.</span>",
+    "image": "../assets/images/time/scene4_hourglass_tilt.jpg",
+    "audio": "../assets/voice_time/scene4.mp3",
+    "duration": 9.00,
+    "audio_duration": 8.30
+  },
+  {
+    "id": "scene5",
+    "tag_pill": "Until We Meet Again",
+    "tag_meta": "The Final Grain",
+    "text": "Anyway... see you tomorrow. Until we meet again.",
+    "subtitle_html": "Anyway... see you tomorrow.<br><span class=\"hl-green\">Until we meet again.</span>",
+    "image": "../assets/images/time/scene5_final_grain.jpg",
+    "audio": "../assets/voice_time/scene5.mp3",
+    "duration": 7.00,
+    "audio_duration": 4.80
+  }
+]

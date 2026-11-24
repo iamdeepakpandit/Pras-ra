@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, height=1080">
+  <title>Shot 4: Reactor Iris & Identity Lockup</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      background: #07070a;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      position: relative;
+    }
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1920px;
+      height: 1080px;
+      z-index: 1;
+    }
+    .overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 60px 80px;
+    }
+    .hud-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(237, 73, 56, 0.3);
+      padding-bottom: 18px;
+    }
+    .hud-tag {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 15px;
+      letter-spacing: 3px;
+      color: #ed4938;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .hud-dot {
+      width: 10px;
+      height: 10px;
+      background: #ed4938;
+      border-radius: 50%;
+      box-shadow: 0 0 12px #ed4938;
+    }
+    .hud-metrics {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 14px;
+      letter-spacing: 2px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+    .hud-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 18px;
+    }
+    .hud-info {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.5);
+      letter-spacing: 2px;
+      line-height: 1.6;
+    }
+    .accent-pill {
+      background: rgba(237, 73, 56, 0.15);
+      border: 1px solid #ed4938;
+      color: #fff;
+      padding: 8px 20px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      box-shadow: 0 0 20px rgba(237, 73, 56, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="c" width="1920" height="1080"></canvas>
+  
+  <div class="overlay">
+    <div class="hud-header">
+      <div class="hud-tag">
+        <div class="hud-dot"></div>
+        <span>ANTIGRAVITY // REEL_2026 // SHOT_04</span>
+      </div>
+      <div class="hud-metrics">
+        REC [00:00:15:00] &nbsp;|&nbsp; 120 FPS &nbsp;|&nbsp; 4K DCI &nbsp;|&nbsp; MASTER OUTPUT
+      </div>
+    </div>
+    
+    
+
+    <div class="hud-footer">
+      <div class="hud-info">
+        PIPELINE: DETERMINISTIC CODE CANVAS<br>
+        RESOLUTION: 1920x1080 NATIVE // 16:9 CINEMA<br>
+        TECHNIQUE: REACTOR IRIS & IDENTITY LOCKUP
+      </div>
+      <div class="accent-pill">
+        ANTIGRAVITY // SHOWREEL 2026
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('c');
+    const ctx = canvas.getContext('2d');
+    const W = 1920;
+    const H = 1080;
+
+    // Deterministic pseudo-random seed generator
+    function pseudoRand(seed) {
+      const x = Math.sin(seed * 9999.123) * 10000;
+      return x - Math.floor(x);
+    }
+
+    
+window.film = {
+  frame(t) {
+    const p = Math.min(Math.max(t / 3.75, 0), 1);
+
+    ctx.fillStyle = '#07070a';
+    ctx.fillRect(0, 0, W, H);
+
+    // 1. Concentric Reactor Iris rings
+    ctx.save();
+    ctx.translate(W / 2, H / 2);
+    const numRings = 8;
+    for (let r = 1; r <= numRings; r++) {
+      const radius = r * 85 + (t * 120) % 85;
+      const alpha = Math.max(0, 1 - radius / 750);
+      ctx.strokeStyle = `rgba(237, 73, 56, ${alpha * 0.4})`;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(0, 0, radius, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Mechanical gear notch marks
+      const notches = 12 * r;
+      for (let n = 0; n < notches; n++) {
+        const angle = (n / notches) * Math.PI * 2 + (r % 2 === 0 ? t * 0.3 : -t * 0.3);
+        const nx = Math.cos(angle) * radius;
+        const ny = Math.sin(angle) * radius;
+        ctx.fillStyle = `rgba(255, 255, 255, ${alpha * 0.6})`;
+        ctx.fillRect(nx - 2, ny - 2, 4, 4);
+      }
+    }
+    ctx.restore();
+
+    // 2. Shockwave Burst at Start of shot
+    if (t < 1.2) {
+      const swR = (t / 1.2) * 900;
+      const swAlpha = 1 - t / 1.2;
+      ctx.save();
+      ctx.strokeStyle = `rgba(255, 255, 255, ${swAlpha})`;
+      ctx.lineWidth = 14 * swAlpha;
+      ctx.shadowColor = '#ed4938';
+      ctx.shadowBlur = 40;
+      ctx.beginPath();
+      ctx.arc(W / 2, H / 2, swR, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    // 3. Central Brand Monolith
+    ctx.save();
+    ctx.translate(W / 2, H / 2);
+
+    // Background glow behind text
+    const textGlow = ctx.createRadialGradient(0, 0, 50, 0, 0, 400);
+    textGlow.addColorStop(0, 'rgba(237, 73, 56, 0.45)');
+    textGlow.addColorStop(0.7, 'rgba(139, 7, 3, 0.15)');
+    textGlow.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = textGlow;
+    ctx.fillRect(-600, -300, 1200, 600);
+
+    // Sub-title badge
+    ctx.font = '700 20px "Courier New", monospace';
+    ctx.fillStyle = '#22d3ee';
+    ctx.letterSpacing = '8px';
+    ctx.textAlign = 'center';
+    ctx.fillText('--- AI & CREATIVE CODE AGENT ---', 0, -110);
+
+    // Giant Main Title: ANTIGRAVITY
+    ctx.font = '900 138px "Arial Black", Impact, sans-serif';
+    ctx.fillStyle = '#ffffff';
+    ctx.shadowColor = '#ed4938';
+    ctx.shadowBlur = 40;
+    ctx.fillText('ANTIGRAVITY', 0, 10);
+    ctx.shadowBlur = 0;
+
+    // Tagline
+    ctx.font = '700 32px "Inter", sans-serif';
+    ctx.fillStyle = '#ed4938';
+    ctx.letterSpacing = '12px';
+    ctx.fillText('SHOWREEL // 2026', 0, 90);
+
+    // Call to Action Box
+    ctx.font = '600 18px "Courier New", monospace';
+    ctx.fillStyle = 'rgba(255,255,255,0.85)';
+    ctx.fillText('[ AVAILABLE FOR COMMISSIONS & FULL VIDEO PRODUCTION ]', 0, 150);
+
+    ctx.restore();
+
+    // 4. Clean Blackout Fadeout in final 0.3s (t: 3.45 -> 3.75)
+    if (t > 3.4) {
+      const fade = Math.min((t - 3.4) / 0.35, 1.0);
+      ctx.fillStyle = `rgba(7, 7, 10, ${fade})`;
+      ctx.fillRect(0, 0, W, H);
+    }
+  }
+};
+
+
+    // Auto-loop preview for manual browser testing
+    let startTime = null;
+    function previewLoop(timestamp) {
+      if (!startTime) startTime = timestamp;
+      const t = ((timestamp - startTime) / 1000) % 3.75;
+      if (window.film && window.film.frame) {
+        window.film.frame(t);
+      }
+      requestAnimationFrame(previewLoop);
+    }
+    requestAnimationFrame(previewLoop);
+  </script>
+</body>
+</html>

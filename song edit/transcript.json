@@ -1,0 +1,350 @@
+[
+  {
+    "id": "w0",
+    "text": "Palpel",
+    "start": 0.08,
+    "end": 0.48
+  },
+  {
+    "id": "w1",
+    "text": "muhalem",
+    "start": 1.5,
+    "end": 2.46
+  },
+  {
+    "id": "w2",
+    "text": "era",
+    "start": 2.46,
+    "end": 2.62
+  },
+  {
+    "id": "w3",
+    "text": "ter",
+    "start": 3.02,
+    "end": 3.18
+  },
+  {
+    "id": "w4",
+    "text": "noi",
+    "start": 3.98,
+    "end": 4.14
+  },
+  {
+    "id": "w5",
+    "text": "sare",
+    "start": 4.62,
+    "end": 4.94
+  },
+  {
+    "id": "w6",
+    "text": "nasebe",
+    "start": 5.18,
+    "end": 6.06
+  },
+  {
+    "id": "w7",
+    "text": "careteria",
+    "start": 6.38,
+    "end": 7.42
+  },
+  {
+    "id": "w8",
+    "text": "Karen",
+    "start": 9.04,
+    "end": 9.28
+  },
+  {
+    "id": "w9",
+    "text": "ja",
+    "start": 9.8,
+    "end": 9.88
+  },
+  {
+    "id": "w10",
+    "text": "ta",
+    "start": 10.12,
+    "end": 10.28
+  },
+  {
+    "id": "w11",
+    "text": "ta",
+    "start": 11.48,
+    "end": 11.64
+  },
+  {
+    "id": "w12",
+    "text": "ta",
+    "start": 11.8,
+    "end": 11.96
+  },
+  {
+    "id": "w13",
+    "text": "sada",
+    "start": 13.16,
+    "end": 13.32
+  },
+  {
+    "id": "w14",
+    "text": "Sara",
+    "start": 13.28,
+    "end": 13.52
+  },
+  {
+    "id": "w15",
+    "text": "mere",
+    "start": 13.76,
+    "end": 13.84
+  },
+  {
+    "id": "w16",
+    "text": "sola",
+    "start": 16.72,
+    "end": 17.12
+  },
+  {
+    "id": "w17",
+    "text": "Zinga",
+    "start": 17.36,
+    "end": 17.6
+  },
+  {
+    "id": "w18",
+    "text": "Me",
+    "start": 18.08,
+    "end": 18.16
+  },
+  {
+    "id": "w19",
+    "text": "boky",
+    "start": 18.4,
+    "end": 18.72
+  },
+  {
+    "id": "w20",
+    "text": "un",
+    "start": 18.8,
+    "end": 18.88
+  },
+  {
+    "id": "w21",
+    "text": "ho",
+    "start": 18.96,
+    "end": 19.04
+  },
+  {
+    "id": "w22",
+    "text": "se",
+    "start": 19.2,
+    "end": 19.28
+  },
+  {
+    "id": "w23",
+    "text": "meatani",
+    "start": 19.44,
+    "end": 20
+  },
+  {
+    "id": "w24",
+    "text": "Sukunge",
+    "start": 20.32,
+    "end": 21.04
+  },
+  {
+    "id": "w25",
+    "text": "del",
+    "start": 21.2,
+    "end": 21.28
+  },
+  {
+    "id": "w26",
+    "text": "que",
+    "start": 21.44,
+    "end": 21.52
+  },
+  {
+    "id": "w27",
+    "text": "un",
+    "start": 21.68,
+    "end": 21.76
+  },
+  {
+    "id": "w28",
+    "text": "patani",
+    "start": 21.84,
+    "end": 22.32
+  },
+  {
+    "id": "w29",
+    "text": "Kutu",
+    "start": 22.64,
+    "end": 22.96
+  },
+  {
+    "id": "w30",
+    "text": "te",
+    "start": 23.6,
+    "end": 23.68
+  },
+  {
+    "id": "w31",
+    "text": "se",
+    "start": 23.76,
+    "end": 23.84
+  },
+  {
+    "id": "w32",
+    "text": "yo",
+    "start": 24,
+    "end": 24.08
+  },
+  {
+    "id": "w33",
+    "text": "te",
+    "start": 24.32,
+    "end": 24.4
+  },
+  {
+    "id": "w34",
+    "text": "va",
+    "start": 24.56,
+    "end": 24.72
+  },
+  {
+    "id": "w35",
+    "text": "de",
+    "start": 24.8,
+    "end": 24.88
+  },
+  {
+    "id": "w36",
+    "text": "queve",
+    "start": 25.04,
+    "end": 25.44
+  },
+  {
+    "id": "w37",
+    "text": "Yeah,",
+    "start": 25.48,
+    "end": 25.8
+  },
+  {
+    "id": "w38",
+    "text": "she",
+    "start": 25.8,
+    "end": 25.88
+  },
+  {
+    "id": "w39",
+    "text": "can",
+    "start": 26.04,
+    "end": 26.12
+  },
+  {
+    "id": "w40",
+    "text": "never",
+    "start": 26.2,
+    "end": 26.36
+  },
+  {
+    "id": "w41",
+    "text": "banani",
+    "start": 26.48,
+    "end": 26.96
+  },
+  {
+    "id": "w42",
+    "text": "Me",
+    "start": 27.2,
+    "end": 27.28
+  },
+  {
+    "id": "w43",
+    "text": "mu",
+    "start": 27.52,
+    "end": 27.6
+  },
+  {
+    "id": "w44",
+    "text": "ton",
+    "start": 28,
+    "end": 28.08
+  },
+  {
+    "id": "w45",
+    "text": "se",
+    "start": 28.32,
+    "end": 28.4
+  },
+  {
+    "id": "w46",
+    "text": "yo",
+    "start": 28.56,
+    "end": 28.64
+  },
+  {
+    "id": "w47",
+    "text": "Yeah",
+    "start": 28.88,
+    "end": 29.12
+  },
+  {
+    "id": "w48",
+    "text": "tu",
+    "start": 29.6,
+    "end": 29.68
+  },
+  {
+    "id": "w49",
+    "text": "parana",
+    "start": 29.84,
+    "end": 30.16
+  },
+  {
+    "id": "w50",
+    "text": "de",
+    "start": 30.48,
+    "end": 30.56
+  },
+  {
+    "id": "w51",
+    "text": "melanani",
+    "start": 30.8,
+    "end": 31.52
+  },
+  {
+    "id": "w52",
+    "text": "Yo",
+    "start": 31.76,
+    "end": 31.92
+  },
+  {
+    "id": "w53",
+    "text": "tu",
+    "start": 32.08,
+    "end": 32.16
+  },
+  {
+    "id": "w54",
+    "text": "niña",
+    "start": 32.24,
+    "end": 32.56
+  },
+  {
+    "id": "w55",
+    "text": "de",
+    "start": 34,
+    "end": 34.08
+  },
+  {
+    "id": "w56",
+    "text": "tu",
+    "start": 34.16,
+    "end": 34.24
+  },
+  {
+    "id": "w57",
+    "text": "che",
+    "start": 34.4,
+    "end": 34.48
+  }
+]

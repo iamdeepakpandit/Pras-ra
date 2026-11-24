@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, height=1080">
+  <title>Shot 3: Kinetic UI, Bézier Curves & Equalizer</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      background: #07070a;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      position: relative;
+    }
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1920px;
+      height: 1080px;
+      z-index: 1;
+    }
+    .overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 60px 80px;
+    }
+    .hud-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(237, 73, 56, 0.3);
+      padding-bottom: 18px;
+    }
+    .hud-tag {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 15px;
+      letter-spacing: 3px;
+      color: #ed4938;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .hud-dot {
+      width: 10px;
+      height: 10px;
+      background: #ed4938;
+      border-radius: 50%;
+      box-shadow: 0 0 12px #ed4938;
+    }
+    .hud-metrics {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 14px;
+      letter-spacing: 2px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+    .hud-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 18px;
+    }
+    .hud-info {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.5);
+      letter-spacing: 2px;
+      line-height: 1.6;
+    }
+    .accent-pill {
+      background: rgba(237, 73, 56, 0.15);
+      border: 1px solid #ed4938;
+      color: #fff;
+      padding: 8px 20px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      box-shadow: 0 0 20px rgba(237, 73, 56, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="c" width="1920" height="1080"></canvas>
+  
+  <div class="overlay">
+    <div class="hud-header">
+      <div class="hud-tag">
+        <div class="hud-dot"></div>
+        <span>ANTIGRAVITY // REEL_2026 // SHOT_03</span>
+      </div>
+      <div class="hud-metrics">
+        REC [00:00:15:00] &nbsp;|&nbsp; 120 FPS &nbsp;|&nbsp; 4K DCI &nbsp;|&nbsp; MASTER OUTPUT
+      </div>
+    </div>
+    
+    
+
+    <div class="hud-footer">
+      <div class="hud-info">
+        PIPELINE: DETERMINISTIC CODE CANVAS<br>
+        RESOLUTION: 1920x1080 NATIVE // 16:9 CINEMA<br>
+        TECHNIQUE: KINETIC UI, BÉZIER CURVES & EQUALIZER
+      </div>
+      <div class="accent-pill">
+        DYNAMIC EASING • AUDIO REACT
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('c');
+    const ctx = canvas.getContext('2d');
+    const W = 1920;
+    const H = 1080;
+
+    // Deterministic pseudo-random seed generator
+    function pseudoRand(seed) {
+      const x = Math.sin(seed * 9999.123) * 10000;
+      return x - Math.floor(x);
+    }
+
+    
+window.film = {
+  frame(t) {
+    const p = Math.min(Math.max(t / 3.75, 0), 1);
+
+    ctx.fillStyle = '#07070a';
+    ctx.fillRect(0, 0, W, H);
+
+    // 1. Audio Frequency Equalizer Bars (32 bands)
+    const numBars = 36;
+    const barW = 24;
+    const barGap = 16;
+    const totalBarsW = numBars * (barW + barGap);
+    const startX = (W - totalBarsW) / 2;
+    const baseLineY = H - 180;
+
+    ctx.save();
+    for (let i = 0; i < numBars; i++) {
+      // Deterministic pulsing height using harmonic sin waves
+      const freqHarmonic = (i + 1) * 0.4;
+      const pulse1 = Math.sin(t * 14.0 + freqHarmonic);
+      const pulse2 = Math.cos(t * 8.0 + i * 0.6);
+      const intensity = Math.abs(pulse1 * 0.6 + pulse2 * 0.4);
+      const barH = 40 + intensity * 260;
+
+      const bx = startX + i * (barW + barGap);
+      const by = baseLineY - barH;
+
+      const barGrad = ctx.createLinearGradient(0, by, 0, baseLineY);
+      barGrad.addColorStop(0, '#ffffff');
+      barGrad.addColorStop(0.3, '#ed4938');
+      barGrad.addColorStop(1, '#8b0703');
+
+      ctx.fillStyle = barGrad;
+      ctx.shadowColor = '#ed4938';
+      ctx.shadowBlur = intensity > 0.7 ? 16 : 6;
+      ctx.fillRect(bx, by, barW, barH);
+    }
+    ctx.restore();
+
+    // 2. Animated Bézier Speed Curve Editor UI
+    const graphX = 240;
+    const graphY = 180;
+    const graphW = 1440;
+    const graphH = 420;
+
+    // Grid behind curve
+    ctx.save();
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+    ctx.lineWidth = 1;
+    for (let x = graphX; x <= graphX + graphW; x += 120) {
+      ctx.beginPath(); ctx.moveTo(x, graphY); ctx.lineTo(x, graphY + graphH); ctx.stroke();
+    }
+    for (let y = graphY; y <= graphY + graphH; y += 70) {
+      ctx.beginPath(); ctx.moveTo(graphX, y); ctx.lineTo(graphX + graphW, y); ctx.stroke();
+    }
+
+    // Dynamic Bézier Control Points
+    const p0 = [graphX, graphY + graphH];
+    const p3 = [graphX + graphW, graphY];
+    // Animated control handles flexing
+    const p1 = [graphX + graphW * 0.25 + 60 * Math.sin(t * 4), graphY + graphH - 40 - 280 * (0.5 + 0.5 * Math.sin(t * 3))];
+    const p2 = [graphX + graphW * 0.75 - 60 * Math.cos(t * 4), graphY + 40 + 200 * (0.5 + 0.5 * Math.cos(t * 3))];
+
+    // Tangent Handles
+    ctx.strokeStyle = '#22d3ee';
+    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(p0[0], p0[1]); ctx.lineTo(p1[0], p1[1]); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(p3[0], p3[1]); ctx.lineTo(p2[0], p2[1]); ctx.stroke();
+
+    // Handle circles
+    ctx.fillStyle = '#22d3ee';
+    ctx.shadowColor = '#22d3ee';
+    ctx.shadowBlur = 12;
+    ctx.beginPath(); ctx.arc(p1[0], p1[1], 8, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(p2[0], p2[1], 8, 0, Math.PI * 2); ctx.fill();
+    ctx.shadowBlur = 0;
+
+    // Draw Cubic Bézier Curve
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 6;
+    ctx.shadowColor = '#ed4938';
+    ctx.shadowBlur = 24;
+    ctx.beginPath();
+    ctx.moveTo(p0[0], p0[1]);
+    ctx.bezierCurveTo(p1[0], p1[1], p2[0], p2[1], p3[0], p3[1]);
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+
+    // Scrubber moving along Bézier
+    const u = (t * 0.9) % 1.0;
+    // Cubic bezier formula for u
+    const bx = Math.pow(1 - u, 3) * p0[0] + 3 * Math.pow(1 - u, 2) * u * p1[0] + 3 * (1 - u) * u * u * p2[0] + Math.pow(u, 3) * p3[0];
+    const by = Math.pow(1 - u, 3) * p0[1] + 3 * Math.pow(1 - u, 2) * u * p1[1] + 3 * (1 - u) * u * u * p2[1] + Math.pow(u, 3) * p3[1];
+
+    ctx.fillStyle = '#ed4938';
+    ctx.shadowColor = '#ed4938';
+    ctx.shadowBlur = 30;
+    ctx.beginPath(); ctx.arc(bx, by, 14, 0, Math.PI * 2); ctx.fill();
+
+    // Vertical cursor line
+    ctx.strokeStyle = 'rgba(237, 73, 56, 0.6)';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([6, 6]);
+    ctx.beginPath(); ctx.moveTo(bx, graphY); ctx.lineTo(bx, graphY + graphH); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.restore();
+
+    // 3. Telemetry HUD Counters
+    ctx.save();
+    const fpsVal = (60.0 + 60.0 * Math.min(t / 2.0, 1.0)).toFixed(2);
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '900 48px "Arial Black", sans-serif';
+    ctx.fillText(`${fpsVal} FPS`, graphX, graphY - 30);
+
+    ctx.font = '700 20px "Courier New", monospace';
+    ctx.fillStyle = '#ed4938';
+    ctx.fillText('// CUBIC-BEZIER(0.16, 1, 0.3, 1) // REALTIME EASING', graphX + 320, graphY - 34);
+    ctx.restore();
+  }
+};
+
+
+    // Auto-loop preview for manual browser testing
+    let startTime = null;
+    function previewLoop(timestamp) {
+      if (!startTime) startTime = timestamp;
+      const t = ((timestamp - startTime) / 1000) % 3.75;
+      if (window.film && window.film.frame) {
+        window.film.frame(t);
+      }
+      requestAnimationFrame(previewLoop);
+    }
+    requestAnimationFrame(previewLoop);
+  </script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+# Node dependencies
+node_modules/
+package-lock.json
+
+# Rendered video outputs & large media (prevent GitHub 100MB rejection)
+*.mp4
+*.mov
+*.avi
+*.mkv
+final content/*.mp4
+openfilm_*/*.mp4
+
+# Temporary & build caches
+.film/
+.hyperframes/
+__pycache__/
+*.pyc
+
+# Local scratch logs
+*.log

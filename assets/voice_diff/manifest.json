@@ -1,0 +1,32 @@
+[
+  {
+    "id": "scene1",
+    "text": "Every animal adapts to its world. We do the opposite: we adapt the world to us.",
+    "mp3": "assets/voice_diff\\scene1.mp3",
+    "duration": 5.98
+  },
+  {
+    "id": "scene2",
+    "text": "Cheetahs have speed. Whales have depth. Physically, humans are outmatched by almost everything in nature.",
+    "mp3": "assets/voice_diff\\scene2.mp3",
+    "duration": 7.78
+  },
+  {
+    "id": "scene3",
+    "text": "Yet a million years ago, we did what no creature dared: we mastered fire. Cooking unlocked the energy that supercharged our brains.",
+    "mp3": "assets/voice_diff\\scene3.mp3",
+    "duration": 9.38
+  },
+  {
+    "id": "scene4",
+    "text": "Ants build cities through instinct. But humans build civilizations through imagination\u2014shared stories, laws, and ideals.",
+    "mp3": "assets/voice_diff\\scene4.mp3",
+    "duration": 9.19
+  },
+  {
+    "id": "scene5",
+    "text": "We are the only animals that contemplate our own existence... and the only ones with the power to protect, or destroy, the world that created us.",
+    "mp3": "assets/voice_diff\\scene5.mp3",
+    "duration": 9.36
+  }
+]

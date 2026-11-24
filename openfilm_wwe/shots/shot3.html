@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080, height=1920">
+  <title>Shot 3: THE MONDAY NIGHT WARS</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: #030305;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      position: relative;
+    }
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1080px;
+      height: 1920px;
+    }
+    .overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 140px 60px 180px 60px;
+      z-index: 10;
+    }
+    .badge-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .tag-badge {
+      align-self: flex-start;
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.6);
+      color: #fbbf24;
+      padding: 10px 24px;
+      border-radius: 999px;
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+    }
+    .scene-title {
+      color: #fff;
+      font-size: 42px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      text-shadow: 0 4px 16px rgba(0,0,0,0.8);
+    }
+    .subtitle-box {
+      background: linear-gradient(180deg, rgba(5,5,8,0.7) 0%, rgba(5,5,8,0.95) 100%);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-left: 6px solid #f59e0b;
+      padding: 24px 32px;
+      border-radius: 12px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.7);
+    }
+    .subtitle-text {
+      color: #f1f5f9;
+      font-size: 34px;
+      line-height: 1.4;
+      font-weight: 600;
+    }
+    .film-grain {
+      position: absolute;
+      inset: 0;
+      opacity: 0.04;
+      pointer-events: none;
+      background-image: radial-gradient(#fff 1px, transparent 1px);
+      background-size: 4px 4px;
+      z-index: 5;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="cv" width="1080" height="1920"></canvas>
+  <div class="film-grain"></div>
+  <div class="overlay">
+    <div class="badge-wrap">
+      <div class="tag-badge">*1998: ATTITUDE ERA TAKEOVER*</div>
+      <div class="scene-title">THE MONDAY NIGHT WARS</div>
+    </div>
+    <div class="subtitle-box">
+      <p class="subtitle-text">Pushed to the brink of defeat by WCW, WWE fought back with raw Attitude—and bought out their rival.</p>
+    </div>
+  </div>
+
+  <script>
+    const cv = document.getElementById('cv');
+    const ctx = cv.getContext('2d');
+
+    function sfc32(a, b, c, d) {
+      return function() {
+        a >>>= 0; b >>>= 0; c >>>= 0; d >>>= 0; 
+        var t = (a + b | 0) + d | 0;
+        d = d + 1 | 0;
+        a = b ^ b >>> 9;
+        b = c + (c << 3) | 0;
+        c = (c << 21 | c >>> 11);
+        c = c + t | 0;
+        return (t >>> 0) / 4294967296;
+      }
+    }
+
+    
+function drawFrame(t) {
+  ctx.fillStyle = '#060609';
+  ctx.fillRect(0, 0, 1080, 1920);
+
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+  for (let y = 0; y < 1920; y += 8) {
+    ctx.fillRect(0, y, 1080, 4);
+  }
+
+  ctx.fillStyle = 'rgba(220, 38, 38, 0.12)';
+  ctx.fillRect(80, 420, 920, 480);
+  ctx.strokeStyle = '#dc2626';
+  ctx.lineWidth = 4;
+  ctx.strokeRect(80, 420, 920, 480);
+
+  ctx.fillStyle = '#ef4444';
+  ctx.font = '900 48px sans-serif';
+  ctx.textAlign = 'left';
+  ctx.fillText('WWF RAW IS WAR', 120, 490);
+
+  ctx.beginPath();
+  ctx.moveTo(120, 820);
+  for (let x = 120; x <= 960; x += 30) {
+    const prog = (x - 120) / 840;
+    const curve = Math.sin(prog * 6 + t * 4) * 40 - prog * 180;
+    ctx.lineTo(x, 780 + curve);
+  }
+  ctx.strokeStyle = '#f87171';
+  ctx.lineWidth = 6;
+  ctx.stroke();
+
+  ctx.fillStyle = 'rgba(6, 182, 212, 0.10)';
+  ctx.fillRect(80, 960, 920, 480);
+  ctx.strokeStyle = '#06b6d4';
+  ctx.lineWidth = 4;
+  ctx.strokeRect(80, 960, 920, 480);
+
+  ctx.fillStyle = '#22d3ee';
+  ctx.font = '900 48px sans-serif';
+  ctx.fillText('WCW MONDAY NITRO', 120, 1030);
+
+  ctx.beginPath();
+  ctx.moveTo(120, 1150);
+  for (let x = 120; x <= 960; x += 30) {
+    const prog = (x - 120) / 840;
+    const curve = Math.cos(prog * 5 + t * 3) * 35 + prog * 160;
+    ctx.lineTo(x, 1180 + curve);
+  }
+  ctx.strokeStyle = '#38bdf8';
+  ctx.lineWidth = 6;
+  ctx.stroke();
+
+  if (t > 3.0) {
+    ctx.save();
+    ctx.translate(540, 1200);
+    ctx.rotate(-0.15);
+    ctx.strokeStyle = '#dc2626';
+    ctx.lineWidth = 8;
+    ctx.strokeRect(-260, -50, 520, 100);
+    ctx.fillStyle = '#ef4444';
+    ctx.font = '900 52px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('ACQUIRED BY WWF', 0, 18);
+    ctx.restore();
+  }
+}
+
+
+    window.film = {
+      frame(t) {
+        drawFrame(t);
+      }
+    };
+
+    window.film.frame(0);
+  </script>
+</body>
+</html>

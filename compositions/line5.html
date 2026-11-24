@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      * { margin:0; padding:0; box-sizing:border-box; }
+      html, body { width:1080px; height:1920px; overflow:hidden; background:#2a0610; font-family:'Poppins', sans-serif; }
+      #root { position:relative; width:1080px; height:1920px; overflow:hidden; }
+      .clip { position:absolute; }
+      .full-frame { top:0; left:0; width:1080px; height:1920px; }
+
+      #bg-img {
+        width:1180px; height:2100px; object-fit:cover; object-position:center; display:block;
+        transform-origin:center center;
+        margin-left:-50px; margin-top:-90px;
+      }
+      .grain {
+        top:0; left:0; width:1080px; height:1920px;
+        background-image:url('../assets/images/lyric/film_grain.png');
+        background-repeat:repeat;
+        mix-blend-mode:overlay;
+        opacity:0.38;
+        pointer-events:none;
+        z-index:20;
+      }
+      #flash {
+        top:0; left:0; width:1080px; height:1920px;
+        background:#ffffff;
+        opacity:0;
+        pointer-events:none;
+        z-index:40;
+        mix-blend-mode:overlay;
+      }
+      .mosaic-layer {
+        top:0; left:0; width:1080px; height:1920px;
+        display:grid;
+        grid-template-columns:repeat(12, 90px);
+        grid-template-rows:repeat(20, 96px);
+        pointer-events:none;
+        z-index:30;
+        opacity:0;
+      }
+      .m-cell { background:#2a0610; opacity:0; }
+
+      .word {
+        top:50%; left:50%;
+        transform:translate(-50%, -50%);
+        width:1020px;
+        height:240px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        text-align:center;
+        font-family:'Poppins', sans-serif;
+        font-weight:800;
+        font-size:155px;
+        line-height:1;
+        letter-spacing:-0.06em;
+        text-transform:lowercase;
+        color:#ffffff;
+        mix-blend-mode:difference;
+        pointer-events:none;
+        z-index:50;
+        opacity:0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Line 5: mere khuwabon main aa naa kar ke solah singhaar (13.58s - 18.50s, duration 4.92s) -->
+    <div id="root" data-composition-id="line5" data-start="0" data-duration="4.92" data-width="1080" data-height="1920">
+      <img id="bg-img" class="clip full-frame" src="../assets/images/lyric/plate4_wine_dream.jpg" alt="" width="1180" height="2100" data-start="0" data-duration="4.92" data-track-index="0" />
+      <div id="grain-layer" class="clip grain" data-start="0" data-duration="4.92" data-track-index="1"></div>
+      <div id="flash" class="clip" data-start="0" data-duration="4.92" data-track-index="2"></div>
+      <div id="mosaic" class="clip mosaic-layer" data-start="0" data-duration="4.92" data-track-index="3">
+        <div class="m-cell"></div><div class="m-cell"></div><div class="m-cell"></div><div class="m-cell"></div>
+      </div>
+
+      <div id="w-mere" class="clip word" data-start="0.00" data-duration="0.66" data-track-index="4">mere</div>
+      <div id="w-khuwabon" class="clip word" data-start="0.66" data-duration="0.90" data-track-index="5">khuwabon</div>
+      <div id="w-main" class="clip word" data-start="1.56" data-duration="0.32" data-track-index="6">main</div>
+      <div id="w-aa" class="clip word" data-start="1.88" data-duration="0.24" data-track-index="7">aa</div>
+      <div id="w-naa" class="clip word" data-start="2.12" data-duration="0.30" data-track-index="8">naa</div>
+      <div id="w-kar" class="clip word" data-start="2.42" data-duration="0.20" data-track-index="9">kar</div>
+      <div id="w-ke" class="clip word" data-start="2.62" data-duration="0.30" data-track-index="10">ke</div>
+      <div id="w-solah" class="clip word" data-start="2.92" data-duration="0.50" data-track-index="11">solah</div>
+      <div id="w-singhaar" class="clip word" data-start="3.42" data-duration="1.45" data-track-index="12">singhaar</div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      // Ken Burns: slow pull back revealing the dream, pan up and zoom
+      tl.fromTo('#bg-img',
+        { scale:1.06, x:15, y:10 },
+        { scale:1.0, x:-15, y:-18, duration:4.92, ease:'power1.inOut' }, 0);
+
+      // Flashes
+      tl.fromTo('#flash', { opacity:0.9 }, { opacity:0, duration:0.12, ease:'power2.out' }, 0.0);
+      tl.fromTo('#flash', { opacity:0.85 }, { opacity:0, duration:0.12, ease:'power2.out', immediateRender:false }, 2.92);
+      tl.fromTo('#flash', { opacity:0.95 }, { opacity:0, duration:0.14, ease:'power2.out', immediateRender:false }, 3.42);
+
+      // Words
+      tl.fromTo('#w-mere', { opacity:0, scale:0.92 }, { opacity:1, scale:1, duration:0.06 }, 0.00);
+      tl.to('#w-mere', { opacity:0, scale:1.03, duration:0.05 }, 0.61);
+
+      tl.fromTo('#w-khuwabon', { opacity:0, scale:0.88 }, { opacity:1, scale:1, duration:0.08 }, 0.66);
+      tl.to('#w-khuwabon', { opacity:0, scale:1.04, duration:0.06 }, 1.50);
+
+      tl.fromTo('#w-main', { opacity:0, scale:0.92 }, { opacity:1, scale:1, duration:0.05 }, 1.56);
+      tl.to('#w-main', { opacity:0, scale:1.03, duration:0.04 }, 1.84);
+
+      tl.fromTo('#w-aa', { opacity:0, scale:0.92 }, { opacity:1, scale:1, duration:0.04 }, 1.88);
+      tl.to('#w-aa', { opacity:0, scale:1.03, duration:0.04 }, 2.08);
+
+      tl.fromTo('#w-naa', { opacity:0, scale:0.92 }, { opacity:1, scale:1, duration:0.05 }, 2.12);
+      tl.to('#w-naa', { opacity:0, scale:1.03, duration:0.04 }, 2.38);
+
+      tl.fromTo('#w-kar', { opacity:0, scale:0.92 }, { opacity:1, scale:1, duration:0.04 }, 2.42);
+      tl.to('#w-kar', { opacity:0, scale:1.03, duration:0.04 }, 2.58);
+
+      tl.fromTo('#w-ke', { opacity:0, scale:0.92 }, { opacity:1, scale:1, duration:0.05 }, 2.62);
+      tl.to('#w-ke', { opacity:0, scale:1.03, duration:0.04 }, 2.88);
+
+      tl.fromTo('#w-solah', { opacity:0, scale:0.90 }, { opacity:1, scale:1, duration:0.06 }, 2.92);
+      tl.to('#w-solah', { opacity:0, scale:1.03, duration:0.05 }, 3.37);
+
+      tl.fromTo('#w-singhaar', { opacity:0, scale:0.86 }, { opacity:1, scale:1, duration:0.09 }, 3.42);
+      tl.to('#w-singhaar', { opacity:0, scale:1.06, duration:0.35 }, 4.55);
+
+      // Final mosaic dissolve at end
+      tl.fromTo('#mosaic', { opacity:0 }, { opacity:0.9, duration:0.18, ease:'steps(4)' }, 4.60);
+
+      window.__timelines['line5'] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

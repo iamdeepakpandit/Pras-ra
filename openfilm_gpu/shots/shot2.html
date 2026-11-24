@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080, height=1920">
+  <title>Shot 2: SMALLER THAN HUMAN DNA</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: #020306;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      position: relative;
+    }
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1080px;
+      height: 1920px;
+    }
+    .overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 130px 60px 170px 60px;
+      z-index: 10;
+    }
+    .badge-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .tag-badge {
+      align-self: flex-start;
+      background: rgba(6, 182, 212, 0.15);
+      border: 1px solid rgba(6, 182, 212, 0.6);
+      color: #22d3ee;
+      padding: 10px 24px;
+      border-radius: 999px;
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      box-shadow: 0 0 20px rgba(6, 182, 212, 0.35);
+    }
+    .scene-title {
+      color: #ffffff;
+      font-size: 42px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.9);
+    }
+    .subtitle-box {
+      background: linear-gradient(180deg, rgba(3,7,18,0.75) 0%, rgba(3,7,18,0.96) 100%);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-left: 6px solid #22d3ee;
+      padding: 24px 32px;
+      border-radius: 14px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 16px 36px rgba(0,0,0,0.8);
+    }
+    .subtitle-text {
+      color: #f8fafc;
+      font-size: 34px;
+      line-height: 1.4;
+      font-weight: 600;
+    }
+    .film-grain {
+      position: absolute;
+      inset: 0;
+      opacity: 0.04;
+      pointer-events: none;
+      background-image: radial-gradient(#fff 1px, transparent 1px);
+      background-size: 4px 4px;
+      z-index: 5;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="cv" width="1080" height="1920"></canvas>
+  <div class="film-grain"></div>
+  <div class="overlay">
+    <div class="badge-wrap">
+      <div class="tag-badge">*NANOMETER PRECISION*</div>
+      <div class="scene-title">SMALLER THAN HUMAN DNA</div>
+    </div>
+    <div class="subtitle-box">
+      <p class="subtitle-text">Each transistor is three nanometers wide. That is smaller than a single strand of human DNA.</p>
+    </div>
+  </div>
+
+  <script>
+    const cv = document.getElementById('cv');
+    const ctx = cv.getContext('2d');
+
+    function sfc32(a, b, c, d) {
+      return function() {
+        a >>>= 0; b >>>= 0; c >>>= 0; d >>>= 0; 
+        var t = (a + b | 0) + d | 0;
+        d = d + 1 | 0;
+        a = b ^ b >>> 9;
+        b = c + (c << 3) | 0;
+        c = (c << 21 | c >>> 11);
+        c = c + t | 0;
+        return (t >>> 0) / 4294967296;
+      }
+    }
+
+    
+function drawFrame(t) {
+  ctx.fillStyle = '#020409';
+  ctx.fillRect(0, 0, 1080, 1920);
+
+  // Radial microscopic depth glow
+  const rad = ctx.createRadialGradient(540, 960, 100, 540, 960, 600);
+  rad.addColorStop(0, 'rgba(6, 182, 212, 0.2)');
+  rad.addColorStop(1, 'rgba(2, 4, 9, 0)');
+  ctx.fillStyle = rad;
+  ctx.fillRect(0, 0, 1080, 1920);
+
+  // Comparative Scale Bars
+  const scales = [
+    { label: 'HUMAN HAIR', size: '80,000 nm', width: 880, color: '#64748b' },
+    { label: 'RED BLOOD CELL', size: '7,000 nm', width: 540, color: '#ef4444' },
+    { label: 'DNA DOUBLE HELIX', size: '2.5 nm', width: 220, color: '#10b981' },
+    { label: 'GPU TRANSISTOR GATE', size: '3.0 nm', width: 250, color: '#f59e0b', highlight: true }
+  ];
+
+  ctx.save();
+  ctx.translate(100, 480);
+  scales.forEach((item, idx) => {
+    const y = idx * 170;
+    ctx.fillStyle = '#94a3b8';
+    ctx.font = '700 24px monospace';
+    ctx.fillText(item.label, 0, y);
+
+    ctx.fillStyle = item.color;
+    ctx.font = '900 32px sans-serif';
+    ctx.fillText(item.size, 650, y);
+
+    // Bar background
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
+    ctx.fillRect(0, y + 16, 880, 24);
+
+    // Dynamic animated bar fill
+    const fillW = Math.min(item.width, item.width * (t * 0.8 + 0.3));
+    ctx.fillStyle = item.color;
+    ctx.fillRect(0, y + 16, fillW, 24);
+
+    if (item.highlight) {
+      ctx.shadowColor = item.color;
+      ctx.shadowBlur = 20;
+      ctx.strokeStyle = '#fff';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(0, y + 16, fillW, 24);
+      ctx.shadowBlur = 0;
+    }
+  });
+  ctx.restore();
+
+  // Quantum Lattice Simulation at bottom
+  ctx.save();
+  ctx.translate(540, 1340);
+  const latticeRows = 4;
+  const latticeCols = 7;
+  for (let r = 0; r < latticeRows; r++) {
+    for (let c = 0; c < latticeCols; c++) {
+      const lx = (c - 3) * 110;
+      const ly = (r - 1.5) * 80;
+      const wave = Math.sin(t * 4 + c * 0.7 + r * 1.1);
+
+      ctx.beginPath();
+      ctx.arc(lx, ly, 12 + wave * 4, 0, Math.PI * 2);
+      ctx.fillStyle = wave > 0 ? '#22d3ee' : '#f59e0b';
+      ctx.fill();
+
+      // Electron bond lines
+      if (c < latticeCols - 1) {
+        ctx.beginPath();
+        ctx.moveTo(lx, ly);
+        ctx.lineTo(lx + 110, ly);
+        ctx.strokeStyle = 'rgba(34, 211, 238, 0.25)';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+      }
+    }
+  }
+
+  ctx.fillStyle = '#e2e8f0';
+  ctx.font = '800 28px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('ATOMIC-SCALE SILICON TRANSISTOR ARRAY', 0, 160);
+  ctx.restore();
+}
+
+
+    window.film = {
+      frame(t) {
+        drawFrame(t);
+      }
+    };
+
+    window.film.frame(0);
+  </script>
+</body>
+</html>

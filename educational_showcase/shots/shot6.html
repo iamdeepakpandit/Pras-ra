@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280, height=720">
+  <title>Scene 6: HISTORICAL TIMELINE</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { width: 1280px; height: 720px; overflow: hidden; background: #07070a; font-family: 'Inter', sans-serif; }
+    canvas { position: absolute; inset: 0; width: 1280px; height: 720px; }
+  </style>
+</head>
+<body>
+  <canvas id="c" width="1280" height="720"></canvas>
+  <script>
+    const canvas = document.getElementById('c');
+    const ctx = canvas.getContext('2d');
+    const W = 1280, H = 720;
+    
+window.film = {
+  frame(t) {
+    const p = Math.min(Math.max(t / 4.5, 0), 1);
+    ctx.fillStyle = '#0a0b0e';
+    ctx.fillRect(0, 0, W, H);
+
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '800 52px "Inter", sans-serif';
+    ctx.fillText('HISTORICAL TIMELINE', 100, 130);
+    ctx.fillStyle = '#ea580c';
+    ctx.font = '700 20px "Courier New", monospace';
+    ctx.fillText('CHRONOLOGICAL MILESTONES', 100, 175);
+
+    // Central Axis Line
+    const lineY = H / 2 + 50;
+    ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+    ctx.lineWidth = 4;
+    ctx.beginPath(); ctx.moveTo(100, lineY); ctx.lineTo(W - 100, lineY); ctx.stroke();
+
+    // Progress line
+    ctx.strokeStyle = '#ea580c';
+    ctx.lineWidth = 4;
+    ctx.beginPath(); ctx.moveTo(100, lineY); ctx.lineTo(100 + (W - 200) * p, lineY); ctx.stroke();
+
+    // Milestones
+    const milestones = [
+      { year: '1970', desc: 'FOUNDATION' },
+      { year: '1995', desc: 'EXPANSION' },
+      { year: '2010', desc: 'TRANSFORMATION' },
+      { year: '2026', desc: 'CURRENT HORIZON' }
+    ];
+
+    milestones.forEach((m, i) => {
+      const mx = 200 + i * ((W - 400) / 3);
+      if (p >= i * 0.25) {
+        ctx.fillStyle = '#ea580c';
+        ctx.beginPath(); ctx.arc(mx, lineY, 12, 0, Math.PI * 2); ctx.fill();
+
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '800 32px "Inter", sans-serif';
+        ctx.fillText(m.year, mx - 40, lineY - 30);
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '600 18px "Courier New", monospace';
+        ctx.fillText(m.desc, mx - 60, lineY + 45);
+      }
+    });
+  }
+};
+
+  </script>
+</body>
+</html>

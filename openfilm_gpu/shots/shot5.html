@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080, height=1920">
+  <title>Shot 5: THE HARDEST OBJECT ON EARTH</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: #020306;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      position: relative;
+    }
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1080px;
+      height: 1920px;
+    }
+    .overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 130px 60px 170px 60px;
+      z-index: 10;
+    }
+    .badge-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .tag-badge {
+      align-self: flex-start;
+      background: rgba(6, 182, 212, 0.15);
+      border: 1px solid rgba(6, 182, 212, 0.6);
+      color: #22d3ee;
+      padding: 10px 24px;
+      border-radius: 999px;
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      box-shadow: 0 0 20px rgba(6, 182, 212, 0.35);
+    }
+    .scene-title {
+      color: #ffffff;
+      font-size: 42px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.9);
+    }
+    .subtitle-box {
+      background: linear-gradient(180deg, rgba(3,7,18,0.75) 0%, rgba(3,7,18,0.96) 100%);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-left: 6px solid #22d3ee;
+      padding: 24px 32px;
+      border-radius: 14px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 16px 36px rgba(0,0,0,0.8);
+    }
+    .subtitle-text {
+      color: #f8fafc;
+      font-size: 34px;
+      line-height: 1.4;
+      font-weight: 600;
+    }
+    .film-grain {
+      position: absolute;
+      inset: 0;
+      opacity: 0.04;
+      pointer-events: none;
+      background-image: radial-gradient(#fff 1px, transparent 1px);
+      background-size: 4px 4px;
+      z-index: 5;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="cv" width="1080" height="1920"></canvas>
+  <div class="film-grain"></div>
+  <div class="overlay">
+    <div class="badge-wrap">
+      <div class="tag-badge">*THE CHOKEPOINT OF HUMANITY*</div>
+      <div class="scene-title">THE HARDEST OBJECT ON EARTH</div>
+    </div>
+    <div class="subtitle-box">
+      <p class="subtitle-text">Dozens of nations can build jetliners. But only one company on Earth can print modern AI chips.</p>
+    </div>
+  </div>
+
+  <script>
+    const cv = document.getElementById('cv');
+    const ctx = cv.getContext('2d');
+
+    function sfc32(a, b, c, d) {
+      return function() {
+        a >>>= 0; b >>>= 0; c >>>= 0; d >>>= 0; 
+        var t = (a + b | 0) + d | 0;
+        d = d + 1 | 0;
+        a = b ^ b >>> 9;
+        b = c + (c << 3) | 0;
+        c = (c << 21 | c >>> 11);
+        c = c + t | 0;
+        return (t >>> 0) / 4294967296;
+      }
+    }
+
+    
+function drawFrame(t) {
+  ctx.fillStyle = '#030408';
+  ctx.fillRect(0, 0, 1080, 1920);
+
+  // Dark obsidian pedestal & golden rim light
+  const rimGrad = ctx.createRadialGradient(540, 880, 100, 540, 880, 550);
+  rimGrad.addColorStop(0, 'rgba(245, 158, 11, 0.22)');
+  rimGrad.addColorStop(0.6, 'rgba(6, 182, 212, 0.08)');
+  rimGrad.addColorStop(1, 'rgba(3, 4, 8, 0)');
+  ctx.fillStyle = rimGrad;
+  ctx.fillRect(0, 0, 1080, 1920);
+
+  // Complete GPU Package (Interposer + Logic Die + HBM3e stacks)
+  ctx.save();
+  ctx.translate(540, 840);
+  ctx.scale(1.0 + t * 0.015, 1.0 + t * 0.015);
+
+  // Substrate Package
+  ctx.fillStyle = '#0f172a';
+  ctx.strokeStyle = '#334155';
+  ctx.lineWidth = 6;
+  ctx.fillRect(-340, -340, 680, 680);
+  ctx.strokeRect(-340, -340, 680, 680);
+
+  // Central Dual-Compute Silicon Dies
+  ctx.fillStyle = '#1e293b';
+  ctx.strokeStyle = '#f59e0b';
+  ctx.lineWidth = 4;
+  ctx.fillRect(-170, -200, 340, 400);
+  ctx.strokeRect(-170, -200, 340, 400);
+
+  // HBM Memory stacks on left & right
+  for (let m = 0; m < 4; m++) {
+    const my = -190 + m * 105;
+    // Left HBM
+    ctx.fillStyle = '#0284c7';
+    ctx.fillRect(-310, my, 110, 85);
+    // Right HBM
+    ctx.fillRect(200, my, 110, 85);
+  }
+
+  // Specular golden light sweep across central die
+  const sweep = ((t * 700) % 2600) - 1300;
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(-170, -200, 340, 400);
+  ctx.clip();
+  const sheen = ctx.createLinearGradient(sweep, -200, sweep + 200, 200);
+  sheen.addColorStop(0, 'rgba(255,255,255,0)');
+  sheen.addColorStop(0.5, 'rgba(251, 191, 36, 0.7)');
+  sheen.addColorStop(1, 'rgba(255,255,255,0)');
+  ctx.fillStyle = sheen;
+  ctx.fillRect(sweep - 100, -200, 400, 400);
+  ctx.restore();
+
+  // Chip text
+  ctx.fillStyle = '#ffffff';
+  ctx.font = '900 44px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('NVIDIA B200', 0, -20);
+  ctx.fillStyle = '#38bdf8';
+  ctx.font = '700 22px monospace';
+  ctx.fillText('208B TRANSISTORS • TSMC 4NP', 0, 40);
+  ctx.restore();
+
+  // Monopoly Chokepoints Banner
+  ctx.save();
+  ctx.translate(540, 1360);
+  ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
+  ctx.strokeStyle = '#f59e0b';
+  ctx.lineWidth = 3;
+  ctx.fillRect(-440, -110, 880, 220);
+  ctx.strokeRect(-440, -110, 880, 220);
+
+  ctx.fillStyle = '#fbbf24';
+  ctx.font = '900 36px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('THE CRITICAL BOTTLENECK', 0, -45);
+
+  ctx.fillStyle = '#e2e8f0';
+  ctx.font = '700 28px monospace';
+  ctx.fillText('EUV LITHOGRAPHY: ASML (100%)', 0, 10);
+  ctx.fillText('ADVANCED FOUNDRY: TSMC (90%+)', 0, 60);
+  ctx.restore();
+}
+
+
+    window.film = {
+      frame(t) {
+        drawFrame(t);
+      }
+    };
+
+    window.film.frame(0);
+  </script>
+</body>
+</html>

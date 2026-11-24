@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, height=1080">
+  <title>Scene 3: DYNAMICS</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { width: 1920px; height: 1080px; overflow: hidden; background: #07070a; font-family: 'Inter', sans-serif; }
+    canvas { position: absolute; inset: 0; width: 1920px; height: 1080px; }
+  </style>
+</head>
+<body>
+  <canvas id="c" width="1920" height="1080"></canvas>
+  <script>
+    const canvas = document.getElementById('c');
+    const ctx = canvas.getContext('2d');
+    const W = 1920, H = 1080;
+    
+window.film = {
+  frame(t) {
+    ctx.fillStyle = '#07070a';
+    ctx.fillRect(0, 0, W, H);
+
+    // Audio Bars
+    const numBars = 36, barW = 24, gap = 16;
+    const startX = (W - (numBars * (barW + gap))) / 2;
+    for (let i = 0; i < numBars; i++) {
+      const intensity = Math.abs(Math.sin(t * 12.0 + i * 0.45) * 0.6 + Math.cos(t * 7.0 + i * 0.8) * 0.4);
+      const bh = 30 + intensity * 260;
+      ctx.fillStyle = '#ed4938';
+      ctx.fillRect(startX + i * (barW + gap), H - 180 - bh, barW, bh);
+    }
+
+    // Bézier curve
+    const gx = 240, gy = 180, gw = 1440, gh = 420;
+    const p0 = [gx, gy + gh], p3 = [gx + gw, gy];
+    const p1 = [gx + gw * 0.25 + 60 * Math.sin(t * 4), gy + gh - 40 - 260 * (0.5 + 0.5 * Math.sin(t * 3))];
+    const p2 = [gx + gw * 0.75 - 60 * Math.cos(t * 4), gy + 40 + 200 * (0.5 + 0.5 * Math.cos(t * 3))];
+
+    ctx.strokeStyle = '#22d3ee';
+    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(p0[0], p0[1]); ctx.lineTo(p1[0], p1[1]); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(p3[0], p3[1]); ctx.lineTo(p2[0], p2[1]); ctx.stroke();
+
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 6;
+    ctx.beginPath();
+    ctx.moveTo(p0[0], p0[1]);
+    ctx.bezierCurveTo(p1[0], p1[1], p2[0], p2[1], p3[0], p3[1]);
+    ctx.stroke();
+
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '900 48px "Arial Black", sans-serif';
+    ctx.fillText('DYNAMICS', gx, gy - 30);
+    ctx.font = '700 20px "Courier New", monospace';
+    ctx.fillStyle = '#ed4938';
+    ctx.fillText('ZERO-DRIFT FRAME TIMELINE', gx + 400, gy - 34);
+  }
+};
+
+  </script>
+</body>
+</html>

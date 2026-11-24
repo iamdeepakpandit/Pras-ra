@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, height=1080">
+  <title>Shot 2: Parametric 3D Wireframe & Morph</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      background: #07070a;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      position: relative;
+    }
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1920px;
+      height: 1080px;
+      z-index: 1;
+    }
+    .overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 60px 80px;
+    }
+    .hud-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(237, 73, 56, 0.3);
+      padding-bottom: 18px;
+    }
+    .hud-tag {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 15px;
+      letter-spacing: 3px;
+      color: #ed4938;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .hud-dot {
+      width: 10px;
+      height: 10px;
+      background: #ed4938;
+      border-radius: 50%;
+      box-shadow: 0 0 12px #ed4938;
+    }
+    .hud-metrics {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 14px;
+      letter-spacing: 2px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+    .hud-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 18px;
+    }
+    .hud-info {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.5);
+      letter-spacing: 2px;
+      line-height: 1.6;
+    }
+    .accent-pill {
+      background: rgba(237, 73, 56, 0.15);
+      border: 1px solid #ed4938;
+      color: #fff;
+      padding: 8px 20px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      box-shadow: 0 0 20px rgba(237, 73, 56, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="c" width="1920" height="1080"></canvas>
+  
+  <div class="overlay">
+    <div class="hud-header">
+      <div class="hud-tag">
+        <div class="hud-dot"></div>
+        <span>ANTIGRAVITY // REEL_2026 // SHOT_02</span>
+      </div>
+      <div class="hud-metrics">
+        REC [00:00:15:00] &nbsp;|&nbsp; 120 FPS &nbsp;|&nbsp; 4K DCI &nbsp;|&nbsp; MASTER OUTPUT
+      </div>
+    </div>
+    
+    
+
+    <div class="hud-footer">
+      <div class="hud-info">
+        PIPELINE: DETERMINISTIC CODE CANVAS<br>
+        RESOLUTION: 1920x1080 NATIVE // 16:9 CINEMA<br>
+        TECHNIQUE: PARAMETRIC 3D WIREFRAME & MORPH
+      </div>
+      <div class="accent-pill">
+        POLYHEDRON RIGS • SPATIAL MATH
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('c');
+    const ctx = canvas.getContext('2d');
+    const W = 1920;
+    const H = 1080;
+
+    // Deterministic pseudo-random seed generator
+    function pseudoRand(seed) {
+      const x = Math.sin(seed * 9999.123) * 10000;
+      return x - Math.floor(x);
+    }
+
+    
+window.film = {
+  frame(t) {
+    const p = Math.min(Math.max(t / 3.75, 0), 1);
+
+    ctx.fillStyle = '#07070a';
+    ctx.fillRect(0, 0, W, H);
+
+    // Deep radial glow in background
+    const bgGlow = ctx.createRadialGradient(W / 2, H / 2, 50, W / 2, H / 2, 700);
+    bgGlow.addColorStop(0, 'rgba(139, 7, 3, 0.4)');
+    bgGlow.addColorStop(0.6, 'rgba(237, 73, 56, 0.08)');
+    bgGlow.addColorStop(1, 'rgba(7, 7, 10, 0)');
+    ctx.fillStyle = bgGlow;
+    ctx.fillRect(0, 0, W, H);
+
+    // 3D Polyhedron Math: Cube + Octahedron dual morph
+    // Rotation angles as function of t
+    const rx = t * 1.2;
+    const ry = t * 1.8;
+    const rz = t * 0.9;
+
+    function rotX(x, y, z, a) {
+      const cos = Math.cos(a), sin = Math.sin(a);
+      return [x, y * cos - z * sin, y * sin + z * cos];
+    }
+    function rotY(x, y, z, a) {
+      const cos = Math.cos(a), sin = Math.sin(a);
+      return [x * cos + z * sin, y, -x * sin + z * cos];
+    }
+    function rotZ(x, y, z, a) {
+      const cos = Math.cos(a), sin = Math.sin(a);
+      return [x * cos - y * sin, x * sin + y * cos, z];
+    }
+
+    // 3D projection helper
+    const fov = 850;
+    function project(pt) {
+      let [x, y, z] = pt;
+      [x, y, z] = rotX(x, y, z, rx);
+      [x, y, z] = rotY(x, y, z, ry);
+      [x, y, z] = rotZ(x, y, z, rz);
+      z += 600; // translate into screen
+      const f = fov / z;
+      return [W / 2 + x * f, H / 2 + y * f, z, f];
+    }
+
+    // Morph factor between Cube and Icosahedron/Octahedron
+    const morph = 0.5 + 0.5 * Math.sin(t * 3.0);
+    const size = 260 + 40 * Math.sin(t * 2.0);
+
+    // 8 Cube Vertices
+    const cubeVerts = [
+      [-1, -1, -1], [1, -1, -1], [1, 1, -1], [-1, 1, -1],
+      [-1, -1,  1], [1, -1,  1], [1, 1,  1], [-1, 1,  1]
+    ];
+    // 6 Octahedron Vertices
+    const octaVerts = [
+      [ 1.4, 0, 0], [-1.4, 0, 0],
+      [0,  1.4, 0], [0, -1.4, 0],
+      [0, 0,  1.4], [0, 0, -1.4]
+    ];
+
+    // Edges of Cube
+    const cubeEdges = [
+      [0,1],[1,2],[2,3],[3,0],
+      [4,5],[5,6],[6,7],[7,4],
+      [0,4],[1,5],[2,6],[3,7]
+    ];
+
+    // Draw connecting edges
+    ctx.save();
+    ctx.lineWidth = 3;
+    ctx.shadowColor = '#ed4938';
+    ctx.shadowBlur = 18;
+
+    for (let e of cubeEdges) {
+      const p1 = project(cubeVerts[e[0]].map(c => c * size));
+      const p2 = project(cubeVerts[e[1]].map(c => c * size));
+
+      // Depth gradient for 3D realism
+      const grad = ctx.createLinearGradient(p1[0], p1[1], p2[0], p2[1]);
+      grad.addColorStop(0, '#ffffff');
+      grad.addColorStop(0.5, '#ed4938');
+      grad.addColorStop(1, '#8b0703');
+      ctx.strokeStyle = grad;
+
+      ctx.beginPath();
+      ctx.moveTo(p1[0], p1[1]);
+      ctx.lineTo(p2[0], p2[1]);
+      ctx.stroke();
+    }
+
+    // Draw secondary inner octahedron
+    for (let i = 0; i < octaVerts.length; i++) {
+      for (let j = i + 1; j < octaVerts.length; j++) {
+        // connect if not opposite
+        if ((i === 0 && j === 1) || (i === 2 && j === 3) || (i === 4 && j === 5)) continue;
+        const p1 = project(octaVerts[i].map(c => c * size * 0.7));
+        const p2 = project(octaVerts[j].map(c => c * size * 0.7));
+        ctx.strokeStyle = 'rgba(34, 211, 238, 0.4)';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(p1[0], p1[1]);
+        ctx.lineTo(p2[0], p2[1]);
+        ctx.stroke();
+      }
+    }
+
+    // Draw Vertex Nodes
+    for (let v of cubeVerts) {
+      const p = project(v.map(c => c * size));
+      const radius = 7 * p[3];
+      ctx.fillStyle = '#ffffff';
+      ctx.shadowColor = '#22d3ee';
+      ctx.shadowBlur = 20;
+      ctx.beginPath();
+      ctx.arc(p[0], p[1], radius, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+
+    // Concentric orbital compass rings
+    ctx.save();
+    ctx.translate(W / 2, H / 2);
+    ctx.rotate(t * 0.4);
+    ctx.strokeStyle = 'rgba(237, 73, 56, 0.25)';
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([12, 18]);
+    ctx.beginPath();
+    ctx.arc(0, 0, 480, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.setLineDash([40, 10]);
+    ctx.beginPath();
+    ctx.arc(0, 0, 520, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.restore();
+
+    // Bold Typography Overlays
+    ctx.save();
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '900 64px "Arial Black", sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillText('PARAMETRIC', 120, H / 2 - 20);
+    ctx.fillStyle = '#ed4938';
+    ctx.fillText('3D MORPH', 120, H / 2 + 50);
+
+    ctx.font = '600 20px "Courier New", monospace';
+    ctx.fillStyle = 'rgba(255,255,255,0.7)';
+    ctx.letterSpacing = '3px';
+    ctx.fillText('POLYGON RIG // DUAL OCTAHEDRAL MESH', 120, H / 2 + 95);
+    ctx.fillText('DETERMINISTIC MATRIX ROTATION', 120, H / 2 + 125);
+    ctx.restore();
+  }
+};
+
+
+    // Auto-loop preview for manual browser testing
+    let startTime = null;
+    function previewLoop(timestamp) {
+      if (!startTime) startTime = timestamp;
+      const t = ((timestamp - startTime) / 1000) % 3.75;
+      if (window.film && window.film.frame) {
+        window.film.frame(t);
+      }
+      requestAnimationFrame(previewLoop);
+    }
+    requestAnimationFrame(previewLoop);
+  </script>
+</body>
+</html>
