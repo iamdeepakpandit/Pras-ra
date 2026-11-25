@@ -26,4 +26,4 @@ The agent MUST automatically route the task through **OpenFilm**:
    - Alternatively, invoke `npx -y openfilm@latest <command>`.
 
 3. **Storage Rule:**
-   - All rendered video outputs and exported MP4s must be saved into the `final content/` folder.
+   - All rendered video outputs and exported MP4s must be saved into the `1.final content/` folder.

@@ -7,6 +7,7 @@ package-lock.json
 *.mov
 *.avi
 *.mkv
+1.final content/*.mp4
 final content/*.mp4
 openfilm_*/*.mp4
 

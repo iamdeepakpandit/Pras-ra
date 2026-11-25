@@ -21,7 +21,7 @@ OpenFilm turns any coding agent into an AI video agent with visual editors to ch
 ## CLI Commands
 - `npx -y openfilm@latest open [folder]` — Start or open a project in Studio.
 - `npx -y openfilm@latest look [what] [t | a-b]` — Check and draw contact sheet with audio/loudness audit.
-- `npx -y openfilm@latest render [a-b]` — Render to MP4 beside `film.html` (mirrored to `final content/`).
+- `npx -y openfilm@latest render [a-b]` — Render to MP4 beside `film.html` (mirrored to `1.final content/`).
 - `npx -y openfilm@latest get [what]` — Fetch media from local footage, free libraries, or AI providers.
 - `npx -y openfilm@latest skills` — List skills installed for this film.
 - `npx -y openfilm@latest doctor` — Diagnose environment readiness (Node, FFmpeg, Chrome).

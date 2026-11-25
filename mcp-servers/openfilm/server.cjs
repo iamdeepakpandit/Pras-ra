@@ -94,7 +94,7 @@ const TOOLS = [
   },
   {
     name: "openfilm_render",
-    description: "Render the OpenFilm project to MP4 using Chrome Headless and FFmpeg, saving output to 'final content/'.",
+    description: "Render the OpenFilm project to MP4 using Chrome Headless and FFmpeg, saving output to '1.final content/'.",
     inputSchema: {
       type: "object",
       properties: {
@@ -104,7 +104,7 @@ const TOOLS = [
         },
         outputFile: {
           type: "string",
-          description: "Custom output file path (defaults to final content/)"
+          description: "Custom output file path (defaults to 1.final content/)"
         },
         projectDir: {
           type: "string",
@@ -187,8 +187,13 @@ async function handleToolCall(name, args) {
     const range = args.range ? `"${args.range}"` : "";
     const res = await runCmd(`${npxCmd} -y openfilm@latest render ${range}`, cwd);
     
-    // Ensure render output is mirrored to final content if needed
-    const finalDir = path.join(cwd, "final content");
+    // Ensure render output is mirrored to 1.final content (or legacy final content) if needed
+    const finalDir = fs.existsSync(path.join(cwd, "1.final content")) 
+      ? path.join(cwd, "1.final content") 
+      : (fs.existsSync(path.join(cwd, "final content")) ? path.join(cwd, "final content") : path.join(cwd, "1.final content"));
+    if (!fs.existsSync(finalDir)) {
+      try { fs.mkdirSync(finalDir, { recursive: true }); } catch (_) {}
+    }
     if (fs.existsSync(finalDir)) {
       const files = fs.readdirSync(cwd).filter(f => f.endsWith(".mp4"));
       for (const f of files) {

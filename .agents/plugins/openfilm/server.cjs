@@ -94,7 +94,7 @@ const TOOLS = [
   },
   {
     name: "openfilm_render",
-    description: "Render the OpenFilm project to MP4 using Chrome Headless and FFmpeg, saving output to 'final content/'.",
+    description: "Render the OpenFilm project to MP4 using Chrome Headless and FFmpeg, saving output to '1.final content/'.",
     inputSchema: {
       type: "object",
       properties: {
@@ -104,7 +104,7 @@ const TOOLS = [
         },
         outputFile: {
           type: "string",
-          description: "Custom output file path (defaults to final content/)"
+          description: "Custom output file path (defaults to 1.final content/)"
         },
         projectDir: {
           type: "string",
@@ -156,17 +156,19 @@ const TOOLS = [
   }
 ];
 
+const npxCmd = process.platform === 'win32' ? 'npx.cmd' : 'npx';
+
 async function handleToolCall(name, args) {
   const cwd = args.projectDir ? path.resolve(args.projectDir) : process.cwd();
 
   if (name === "openfilm_doctor") {
-    const res = await runCmd("npx -y openfilm@latest doctor", cwd);
+    const res = await runCmd(`${npxCmd} -y openfilm@latest doctor`, cwd);
     return res.stdout || res.stderr || (res.success ? "Doctor check passed." : "Doctor check failed.");
   }
 
   if (name === "openfilm_open") {
     // Launch in background
-    const proc = spawn("npx", ["-y", "openfilm@latest", "open", cwd], {
+    const proc = spawn(npxCmd, ["-y", "openfilm@latest", "open", cwd], {
       detached: true,
       stdio: "ignore",
       shell: true
@@ -177,16 +179,21 @@ async function handleToolCall(name, args) {
 
   if (name === "openfilm_look") {
     const arg = args.target ? `"${args.target}"` : "";
-    const res = await runCmd(`npx -y openfilm@latest look ${arg}`, cwd);
+    const res = await runCmd(`${npxCmd} -y openfilm@latest look ${arg}`, cwd);
     return res.stdout || res.stderr || "Look complete.";
   }
 
   if (name === "openfilm_render") {
     const range = args.range ? `"${args.range}"` : "";
-    const res = await runCmd(`npx -y openfilm@latest render ${range}`, cwd);
+    const res = await runCmd(`${npxCmd} -y openfilm@latest render ${range}`, cwd);
     
-    // Ensure render output is mirrored to final content if needed
-    const finalDir = path.join(cwd, "final content");
+    // Ensure render output is mirrored to 1.final content (or legacy final content) if needed
+    const finalDir = fs.existsSync(path.join(cwd, "1.final content")) 
+      ? path.join(cwd, "1.final content") 
+      : (fs.existsSync(path.join(cwd, "final content")) ? path.join(cwd, "final content") : path.join(cwd, "1.final content"));
+    if (!fs.existsSync(finalDir)) {
+      try { fs.mkdirSync(finalDir, { recursive: true }); } catch (_) {}
+    }
     if (fs.existsSync(finalDir)) {
       const files = fs.readdirSync(cwd).filter(f => f.endsWith(".mp4"));
       for (const f of files) {
@@ -200,7 +207,7 @@ async function handleToolCall(name, args) {
   }
 
   if (name === "openfilm_get") {
-    const res = await runCmd(`npx -y openfilm@latest get "${args.what}"`, cwd);
+    const res = await runCmd(`${npxCmd} -y openfilm@latest get "${args.what}"`, cwd);
     return res.stdout || res.stderr || "Get completed.";
   }
 

@@ -6,7 +6,7 @@ Whenever a user prompt requests **video creation**, **video editing**, **shorts*
 1. **Engine Routing:** Automatically route through **OpenFilm** using the OpenFilm skill and the connected OpenFilm MCP server (`openfilm_scaffold`, `openfilm_look`, `openfilm_render`, `openfilm_open`, `openfilm_get`).
 2. **Project Format:** Use `film.html` and deterministic web scenes implementing `window.film = { frame(t) { ... } }`.
 3. **Interactive Studio:** Offer or trigger `openfilm open` to bring up the browser Studio for live human-in-the-loop trimming, color grading, and override adjustments.
-4. **Output Directory:** All final renders and exports must be directed to `final content/`.
+4. **Output Directory:** All final renders and exports must be directed to `1.final content/`.
 
 For legacy/hybrid projects already initialized with HyperFrames, maintain backwards compatibility:
 
